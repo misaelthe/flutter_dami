@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_dami/DBCibertec.dart';
-import 'package:flutter_dami/LoginCtrlr.dart';
-import 'package:flutter_dami/home_page.dart';
+import 'package:flutter_dami/controller/LoginCtrlr.dart';
+import 'package:flutter_dami/pages/home_page.dart';
 import 'package:flutter_dami/model/Usuario.dart';
 import 'package:flutter_dami/services/login_response.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -88,6 +87,11 @@ class _LoginPageState extends State<LoginPage> implements LoginCallBack {
           appBar: AppBar(title: Text("f")),
           key: scaffoldKey,
           body: formLogin,
+          floatingActionButton: FloatingActionButton(
+            onPressed: listarReg(),
+            child: Icon(Icons.access_alarm),
+            backgroundColor: Colors.blue,
+          ),
         );
         break;
       case LoginStatus.signIn:
@@ -102,15 +106,17 @@ class _LoginPageState extends State<LoginPage> implements LoginCallBack {
     getPref();
   }
 
+  listarReg() {
+    LoginCtrl con = new LoginCtrl();
+    con.getAllUsuario().then((value) => print("" + value.last.usuario));
+  }
+
   void _submit() {
     final form = _formLoginKey.currentState;
     if (form.validate()) {
       setState(() {
         _isLoading = true;
         form.save();
-        LoginCtrl con = new LoginCtrl();
-        con.insertUsuario(new Usuario(2, _usuario, _password, 1));
-        print(_usuario + " a sido añadido");
         _response.doLogin(_usuario, _password);
       });
     }

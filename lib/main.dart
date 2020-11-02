@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter_dami/home_page.dart';
-import 'package:flutter_dami/login_page.dart';
+import 'package:flutter_dami/pages/home_page.dart';
+import 'package:flutter_dami/pages/login_page.dart';
 import 'package:flutter/material.dart';
 
 void main() => runApp(MyApp());

@@ -1,7 +1,7 @@
-import 'package:flutter_dami/DBCibertec.dart';
+import 'package:flutter_dami/db/DBCibertec.dart';
 import 'package:flutter_dami/model/Usuario.dart';
 
-import 'DBCibertec.dart';
+import '../db/DBCibertec.dart';
 
 class LoginCtrl {
   DBCibertec con = new DBCibertec();
@@ -18,7 +18,7 @@ class LoginCtrl {
   Future<Usuario> getUsuario(String usuario, String password) async {
     var dbClient = await con.database;
     var res = await dbClient.rawQuery(
-        "SELECT * FROM user WHERE username = '$usuario' and password = '$password'");
+        "SELECT * FROM usuario u WHERE u.usuario = '$usuario' and u.password = '$password'");
     if (res.length > 0) {
       return new Usuario.fromMap(res.first);
     }

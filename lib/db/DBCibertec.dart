@@ -1,11 +1,6 @@
 import 'package:sqflite/sqflite.dart';
 import "dart:async";
 import 'package:path/path.dart';
-import 'dart:io';
-import 'dart:typed_data';
-import 'package:flutter/services.dart';
-import 'package:path_provider/path_provider.dart';
-import 'model/Usuario.dart';
 
 class DBCibertec {
   static const databaseName = 'cibertec.db';
