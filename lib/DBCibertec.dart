@@ -32,17 +32,4 @@ class DBCibertec {
       },
     );
   }
-
-  Future<List<Usuario>> selectUsuario() async {
-    final Database tem = await database;
-    final List<Map<String, dynamic>> res = await tem.query("usuario");
-    return List.generate(res.length, (i) {
-      return Usuario(
-        idusuario: res[i]['idusuario'],
-        usuario: res[i]['usuario'],
-        password: res[i]['password'],
-        credencial: res[i]['credencial'],
-      );
-    });
-  }
 }
