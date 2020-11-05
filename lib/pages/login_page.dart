@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_dami/controller/LoginCtrlr.dart';
-import 'package:flutter_dami/pages/home_page.dart';
+import 'package:flutter_dami/pages/docente_page.dart';
 import 'package:flutter_dami/model/Usuario.dart';
 import 'package:flutter_dami/services/login_response.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -84,7 +84,7 @@ class _LoginPageState extends State<LoginPage> implements LoginCallBack {
           ),
         );
         return Scaffold(
-          appBar: AppBar(title: Text("f")),
+          appBar: AppBar(title: Text("Login")),
           key: scaffoldKey,
           body: formLogin,
           floatingActionButton: FloatingActionButton(
@@ -95,7 +95,7 @@ class _LoginPageState extends State<LoginPage> implements LoginCallBack {
         );
         break;
       case LoginStatus.signIn:
-        return HomePage();
+        return DocenteHomePage();
         break;
     }
   }

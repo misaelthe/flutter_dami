@@ -1,5 +1,5 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter_dami/pages/home_page.dart';
+import 'package:flutter_dami/pages/docente_page.dart';
 import 'package:flutter_dami/pages/login_page.dart';
 import 'package:flutter/material.dart';
 
@@ -7,7 +7,7 @@ void main() => runApp(MyApp());
 
 final routes = {
   '/login': (BuildContext context) => new LoginPage(),
-  '/home': (BuildContext context) => new HomePage(),
+  '/homePageDocente': (BuildContext context) => new DocenteHomePage(),
   '/': (BuildContext context) => new LoginPage(),
 };
 
