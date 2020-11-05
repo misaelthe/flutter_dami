@@ -24,8 +24,4 @@ class Usuario {
   String get usuario => _usuario;
   String get password => _password;
   int get credencial => _credencial;
-  /*@override
-  String toString() {
-    return 'Usuario{id: $id, name: $name, age: $age}';
-  }*/
 }

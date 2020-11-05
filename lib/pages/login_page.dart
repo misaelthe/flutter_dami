@@ -127,7 +127,6 @@ class _LoginPageState extends State<LoginPage> implements LoginCallBack {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     setState(() {
       value = preferences.getInt("value");
-
       _loginStatus = value == 1 ? LoginStatus.signIn : LoginStatus.notSignIn;
     });
   }
@@ -136,20 +135,15 @@ class _LoginPageState extends State<LoginPage> implements LoginCallBack {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     setState(() {
       preferences.setInt("value", null);
-      // ignore: deprecated_member_use
-      preferences.commit();
       _loginStatus = LoginStatus.notSignIn;
     });
   }
 
-  savePref(int value, String user, String pass) async {
+  savePref(int value, int idusuario) async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     setState(() {
       preferences.setInt("value", value);
-      preferences.setString("user", user);
-      preferences.setString("pass", pass);
-      // ignore: deprecated_member_use
-      preferences.commit();
+      preferences.setInt("idusuario", idusuario);
     });
   }
 
@@ -163,7 +157,7 @@ class _LoginPageState extends State<LoginPage> implements LoginCallBack {
   @override
   void onLoginSuccess(Usuario usuario) {
     if (usuario != null) {
-      savePref(1, usuario.usuario, usuario.password);
+      savePref(1, usuario.idusuario);
       _loginStatus = LoginStatus.signIn;
     } else {
       setState(() {
@@ -171,6 +165,6 @@ class _LoginPageState extends State<LoginPage> implements LoginCallBack {
       });
     }
 
-    //Navigator.of(context).pushNamed("/home");
+    Navigator.of(context).pushNamed("/homePageDocente");
   }
 }

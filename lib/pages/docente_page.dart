@@ -1,59 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_dami/widgets/header_cibertec.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class DocenteHomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Widget titleSection = Container(
-      padding: const EdgeInsets.only(top: 50, bottom: 20),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: [
-          Column(
-            children: [
-              Image(
-                image: AssetImage("assets/colegiologo.png"),
-                width: 120,
-                height: 20,
-              )
-            ],
-          ),
-          Column(
-            children: [
-              Text(
-                'Instituto',
-                textAlign: TextAlign.left,
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontFamily: 'Roboto',
-                ),
-              ),
-              Text(
-                'Cibertec',
-                style: TextStyle(fontFamily: 'Raleway'),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(top: 20.0),
-                child: Text('Direccion',
-                    style: TextStyle(
-                        fontWeight: FontWeight.bold, fontFamily: 'Raleway')),
-              ),
-              Text('Av. Carlos Izaguirre 233',
-                  style: TextStyle(fontFamily: 'Raleway')),
-              Padding(
-                padding: const EdgeInsets.only(top: 20.0),
-                child: Text('Telefono',
-                    style: TextStyle(
-                        fontWeight: FontWeight.bold, fontFamily: 'Raleway')),
-              ),
-              Text('633-5555', style: TextStyle(fontFamily: 'Raleway')),
-            ],
-          ),
-
-          /*3*/
-        ],
-      ),
-    );
+        padding: const EdgeInsets.only(top: 50, bottom: 20),
+        child: HeaderCibertecWidget());
 
     Widget titleSections = Container(
       padding: const EdgeInsets.all(32),
@@ -81,7 +36,7 @@ class DocenteHomePage extends StatelessWidget {
         ],
       ),
     );
-//
+
     Widget buttonSection = Container(
         padding: EdgeInsets.all(32),
         child: Column(children: <Widget>[
@@ -181,8 +136,7 @@ class DocenteHomePage extends StatelessWidget {
         title: 'Flutter layout demo',
         home: Scaffold(
             drawer: Drawer(
-              child:
-                  ListView(padding: EdgeInsets.zero, children: const <Widget>[
+              child: ListView(padding: EdgeInsets.zero, children: <Widget>[
                 DrawerHeader(
                   decoration: BoxDecoration(color: Colors.blue),
                   child: Text(
@@ -201,6 +155,11 @@ class DocenteHomePage extends StatelessWidget {
                 ListTile(
                   leading: Icon(Icons.settings),
                   title: Text('Settings'),
+                ),
+                ListTile(
+                  leading: Icon(Icons.message),
+                  title: Text('Sign Out'),
+                  //onTap: ()=>signOut(context),
                 ),
               ]),
             ),
@@ -252,5 +211,12 @@ class DocenteHomePage extends StatelessWidget {
         ),
       ],
     );
+  }
+
+  signOut(BuildContext context) async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    preferences.setInt("value", 0);
+    preferences.setInt("idusuario", null);
+    Navigator.pushNamed(context, "/login");
   }
 }
