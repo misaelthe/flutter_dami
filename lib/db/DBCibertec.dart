@@ -37,5 +37,10 @@ class DBCibertec {
         "INSERT INTO usuario(idusuario,usuario,password,credencial) values (1,'abc','abc',1)");
     await db.rawInsert(
         "INSERT INTO usuario(idusuario,usuario,password,credencial) values (2,'misa','misa',2)");
+  //  await db.rawInsert(
+  //      "INSERT INTO alumno(idusuario,usuario,password,credencial) values (1,'kath','kath',1)");
+  
+  
+  
   }
 }
