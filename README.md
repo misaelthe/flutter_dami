@@ -1,3 +1,10 @@
+# 0.6
+    Interfaz AlumnoHomePage añadida
+    Logueo simplificado
+    Response adn Request Login quitados
+    LoginController y UsuarioService modificados
+    / SignOut en DocenteHomePage funciona y te devuelve al Login y setea el login a 0
+    X Se puede volver del Login al  DocenteHomePage, sin loguearse
 # 0.5.2
     Modelo de Entidades añadidos: Docente, Alumno
     Creacion de nuevas tablas: Docente, Alumno 
