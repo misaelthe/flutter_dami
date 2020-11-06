@@ -1,35 +1,27 @@
 import 'package:flutter_dami/db/DBCibertec.dart';
-import 'package:flutter_dami/model/Usuario.dart';
+import 'package:flutter_dami/services/usuario_service.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../db/DBCibertec.dart';
 
 class LoginCtrl {
   DBCibertec con = new DBCibertec();
+  UsuarioService serUsuario = new UsuarioService();
 
-  Future<int> insertUsuario(Usuario usuario) async {
-    var dbCibertec = await con.database;
-    int res = await dbCibertec.insert(
-      "usuario",
-      usuario.toMap(),
-    );
-    return res;
+  login(String usuario, String password) async {
+    int idusuario;
+    await serUsuario
+        .getUsuarioBy(usuario, password)
+        .then((usuario) => idusuario = usuario.idusuario)
+        .catchError((onError) => onError.toString());
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    preferences.setInt("isLogged", 1);
+    preferences.setInt("idusuario", idusuario);
   }
 
-  Future<Usuario> getUsuario(String usuario, String password) async {
-    var dbClient = await con.database;
-    var res = await dbClient.rawQuery(
-        "SELECT * FROM usuario u WHERE u.usuario = '$usuario' and u.password = '$password'");
-    if (res.length > 0) {
-      return new Usuario.fromMap(res.first);
-    }
-    return null;
-  }
-
-  Future<List<Usuario>> getAllUsuario() async {
-    var dbCibertec = await con.database;
-    var res = await dbCibertec.query("usuario");
-    List<Usuario> list =
-        res.isNotEmpty ? res.map((c) => Usuario.fromMap(c)).toList() : null;
-    return list;
+  signOut() async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    preferences.setInt("isLogged", 0);
+    preferences.setInt("idusuario", null);
   }
 }
