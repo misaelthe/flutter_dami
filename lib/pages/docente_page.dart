@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_dami/controller/LoginCtrlr.dart';
 import 'package:flutter_dami/widgets/header_cibertec.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class DocenteHomePage extends StatelessWidget {
+  LoginCtrl loginCtrl = new LoginCtrl();
   @override
   Widget build(BuildContext context) {
     Widget titleSection = Container(
@@ -159,7 +160,9 @@ class DocenteHomePage extends StatelessWidget {
                 ListTile(
                   leading: Icon(Icons.message),
                   title: Text('Sign Out'),
-                  //onTap: ()=>signOut(context),
+                  onTap: () {
+                    signOutDocente(context);
+                  },
                 ),
               ]),
             ),
@@ -213,10 +216,8 @@ class DocenteHomePage extends StatelessWidget {
     );
   }
 
-  signOut(BuildContext context) async {
-    SharedPreferences preferences = await SharedPreferences.getInstance();
-    preferences.setInt("value", 0);
-    preferences.setInt("idusuario", null);
-    Navigator.pushNamed(context, "/login");
+  signOutDocente(BuildContext context) async {
+    loginCtrl.signOut();
+    Navigator.of(context).pushNamed("/login");
   }
 }
