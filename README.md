@@ -1,3 +1,8 @@
+# 0.6.3
+    El Login deiferencia si es Alumno o Docente y lo lleva a su respectiva pagina
+    Error en la BD solucionado
+    LoginPage Modificado
+    Añadido AlumnoCtrl
 # 0.6.2
     / YA NO SE puede volver del Login al  DocenteHomePage, sin loguearse (FIXED) 
     Se muestra un AlertDialog al hacer SignOut en Docente y Alumno HomePage
