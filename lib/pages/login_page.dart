@@ -19,16 +19,12 @@ class LoginPage extends StatefulWidget {
   _LoginPageState createState() => _LoginPageState();
 }
 
-enum LoginStatus { notSignIn, signIn }
-
 class _LoginPageState extends State<LoginPage> {
-  LoginStatus _loginStatus = LoginStatus.notSignIn;
   final _formLoginKey = GlobalKey<FormState>();
   final scaffoldKey = new GlobalKey<ScaffoldState>();
-  String _usuario, _password, idusuario;
+  String _usuario, _password;
   BuildContext _ctx;
 
-  bool _isLoading = false;
   LoginCtrl loginCtr;
 
   @override
@@ -91,7 +87,6 @@ class _LoginPageState extends State<LoginPage> {
     loginCtr = new LoginCtrl();
     if (form.validate()) {
       setState(() {
-        _isLoading = true;
         form.save();
         loginCtr.login(_usuario, _password);
       });

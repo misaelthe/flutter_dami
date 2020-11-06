@@ -1,3 +1,6 @@
+# 0.6.2
+    / YA NO SE puede volver del Login al  DocenteHomePage, sin loguearse (FIXED) 
+    Se muestra un AlertDialog al hacer SignOut en Docente y Alumno HomePage
 # 0.6.1
     Metodo de SignOut añadido a AlumnoHomePage
     Llamada a widget HeaderCibertec en AlumnoHomePage

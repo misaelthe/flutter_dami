@@ -4,6 +4,7 @@ import 'package:flutter_dami/widgets/header_cibertec.dart';
 
 class DocenteHomePage extends StatelessWidget {
   final LoginCtrl loginCtrl = new LoginCtrl();
+
   @override
   Widget build(BuildContext context) {
     Widget titleSection = Container(
@@ -163,7 +164,29 @@ class DocenteHomePage extends StatelessWidget {
                   leading: Icon(Icons.message),
                   title: Text('Sign Out'),
                   onTap: () {
-                    signOutDocente(context);
+                    showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return AlertDialog(
+                            title: Text("Sign Out"),
+                            content: Text("¿Seguro que desea salir?"),
+                            actions: <Widget>[
+                              FlatButton(
+                                child: Text("Ok"),
+                                onPressed: () {
+                                  signOut(context);
+                                },
+                              ),
+                              FlatButton(
+                                child: Text("Cancelar"),
+                                onPressed: () {
+                                  Navigator.pop(context);
+                                },
+                              )
+                            ],
+                            elevation: 24.0,
+                          );
+                        });
                   },
                 ),
               ]),
@@ -218,9 +241,8 @@ class DocenteHomePage extends StatelessWidget {
     );
   }
 
-  signOutDocente(BuildContext context) async {
-    loginCtrl.signOut();
-    Navigator.of(context).pushNamed("/login");
+  signOut(BuildContext context) {
+    loginCtrl.signOut(context);
   }
 
   iraPageAlumno(BuildContext context) async {

@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_dami/db/DBCibertec.dart';
 import 'package:flutter_dami/services/usuario_service.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -15,13 +16,14 @@ class LoginCtrl {
         .then((usuario) => idusuario = usuario.idusuario)
         .catchError((onError) => onError.toString());
     SharedPreferences preferences = await SharedPreferences.getInstance();
-    preferences.setInt("isLogged", 1);
+    preferences.setBool("isLoggedIn", true);
     preferences.setInt("idusuario", idusuario);
   }
 
-  signOut() async {
+  signOut(BuildContext context) async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
-    preferences.setInt("isLogged", 0);
+    preferences.setBool("isLoggedIn", false);
     preferences.setInt("idusuario", null);
+    Navigator.pushNamedAndRemoveUntil(context, "/login", (_) => false);
   }
 }

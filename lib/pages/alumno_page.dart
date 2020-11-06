@@ -153,7 +153,29 @@ class AlumnoHomePage extends StatelessWidget {
                   leading: Icon(Icons.account_circle),
                   title: Text('Sign Out'),
                   onTap: () {
-                    signOutAlumno(context);
+                    showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return AlertDialog(
+                            title: Text("Sign Out"),
+                            content: Text("¿Seguro que desea salir?"),
+                            actions: <Widget>[
+                              FlatButton(
+                                child: Text("Ok"),
+                                onPressed: () {
+                                  signOut(context);
+                                },
+                              ),
+                              FlatButton(
+                                child: Text("Cancelar"),
+                                onPressed: () {
+                                  Navigator.pop(context);
+                                },
+                              )
+                            ],
+                            elevation: 24.0,
+                          );
+                        });
                   },
                 ),
                 ListTile(
@@ -212,8 +234,7 @@ class AlumnoHomePage extends StatelessWidget {
     );
   }
 
-  signOutAlumno(BuildContext context) async {
-    loginCtrl.signOut();
-    Navigator.of(context).pushNamed("/login");
+  signOut(BuildContext context) async {
+    loginCtrl.signOut(context);
   }
 }
