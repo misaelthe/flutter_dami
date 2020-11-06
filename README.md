@@ -1,4 +1,8 @@
+# 0.6.1
+    Metodo de SignOut añadido a AlumnoHomePage
+    Llamada a widget HeaderCibertec en AlumnoHomePage
 # 0.6
+    Todas las tablas añadidas en la DB
     Interfaz AlumnoHomePage añadida
     Logueo simplificado
     Response adn Request Login quitados

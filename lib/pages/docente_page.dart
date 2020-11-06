@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_dami/controller/LoginCtrlr.dart';
 import 'package:flutter_dami/widgets/header_cibertec.dart';
 
 class DocenteHomePage extends StatelessWidget {
-  LoginCtrl loginCtrl = new LoginCtrl();
+  final LoginCtrl loginCtrl = new LoginCtrl();
   @override
   Widget build(BuildContext context) {
     Widget titleSection = Container(
@@ -156,6 +155,9 @@ class DocenteHomePage extends StatelessWidget {
                 ListTile(
                   leading: Icon(Icons.settings),
                   title: Text('Settings'),
+                  onTap: () {
+                    iraPageAlumno(context);
+                  },
                 ),
                 ListTile(
                   leading: Icon(Icons.message),
@@ -219,5 +221,9 @@ class DocenteHomePage extends StatelessWidget {
   signOutDocente(BuildContext context) async {
     loginCtrl.signOut();
     Navigator.of(context).pushNamed("/login");
+  }
+
+  iraPageAlumno(BuildContext context) async {
+    Navigator.of(context).pushNamed("/homePageAlumno");
   }
 }
