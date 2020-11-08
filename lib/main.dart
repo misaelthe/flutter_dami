@@ -19,7 +19,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: "Flutter DAMI",
-      theme: ThemeData(primaryColor: Colors.amber),
+      theme: ThemeData(primaryColor: Colors.blueAccent),
       initialRoute: '/login',
       routes: routes,
     );

@@ -1,3 +1,5 @@
+# 0.6.4
+    Mejora Login
 # 0.6.3
     El Login deiferencia si es Alumno o Docente y lo lleva a su respectiva pagina
     Error en la BD solucionado
