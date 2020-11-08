@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_dami/controller/LoginCtrlr.dart';
+import 'package:flutter_dami/model/Usuario.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginPage extends StatefulWidget {
@@ -13,7 +14,7 @@ class _LoginPageState extends State<LoginPage> {
   TextStyle style = TextStyle(fontFamily: 'Montserrat', fontSize: 20.0);
   String _usuario, _password;
   String path;
-
+  Usuario user;
   LoginCtrl loginCtr;
 
   @override
@@ -105,20 +106,33 @@ class _LoginPageState extends State<LoginPage> {
 
   Future<void> _submit() async {
     final form = _formLoginKey.currentState;
-    int _credencial;
     loginCtr = new LoginCtrl();
     if (form.validate()) {
-      try {
-        form.save();
-        loginCtr.login(_usuario, _password);
+      form.save();
+      user = await loginCtr.login(_usuario, _password);
+      if (user == null)
+        showDialog(
+            context: context,
+            builder: (_) => new AlertDialog(
+                  title: new Text("Error"),
+                  content: new Text("Datos Incorrectos, ¿Que intentas hacer?"),
+                  actions: <Widget>[
+                    FlatButton(
+                      child: Text('Entiendo'),
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      },
+                    )
+                  ],
+                ));
+      else {
         SharedPreferences preferences = await SharedPreferences.getInstance();
-        _credencial = preferences.getInt("credencial");
-        path = _credencial == 1
+        preferences.setBool("isLoggedIn", true);
+        preferences.setInt("idusuario", user.idusuario);
+        preferences.setInt("credencial", user.credencial);
+        path = user.credencial == 1
             ? "/homePageDocente"
-            : (_credencial == 2 ? "/homePageAlumno" : "/homePageAlumno");
-      } catch (e) {
-        print("Incorrecto usaurio o login" + e);
-      } finally {
+            : (user.credencial == 2 ? "/homePageAlumno" : "/homePageAlumno");
         Navigator.of(context).pushNamed(path);
       }
     }

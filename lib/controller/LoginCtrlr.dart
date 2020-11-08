@@ -14,12 +14,8 @@ class LoginCtrl {
   login(String usuario, String password) async {
     await serUsuario
         .getUsuarioBy(usuario, password)
-        .then((value) => _usuario = value)
-        .catchError((onError) => onError.toString());
-    SharedPreferences preferences = await SharedPreferences.getInstance();
-    preferences.setBool("isLoggedIn", true);
-    preferences.setInt("idusuario", _usuario.idusuario);
-    preferences.setInt("credencial", _usuario.credencial);
+        .then((value) => _usuario = value);
+    return _usuario;
   }
 
   signOut(BuildContext context) async {
