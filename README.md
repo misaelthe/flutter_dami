@@ -1,3 +1,6 @@
+# 0.7.4
+    Login de Usuario conectado exitosamente a Base de Datos remota
+    Error al loguearse incorrectamente
 # 0.6.4
     Mejora Login
 # 0.6.3

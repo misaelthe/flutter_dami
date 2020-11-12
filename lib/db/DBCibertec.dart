@@ -47,17 +47,5 @@ class DBCibertec {
         "CREATE TABLE nota(idnota INTEGER primary key,idclase TEXT,idalumno INTEGER,e1 INTEGER,e2 INTEGER,ep INTEGER,e3 INTEGER,ef INTEGER,promedio INTEGER)");
     await db.execute(
         "CREATE TABLE matricula(idmatricula INTEGER primary key,idalumno INTEGER,periodo TEXT,ciclo INTEGER,year INTEGER,idcarrera INTEGER,idturno TEXT)");
-    _insert(db);
-  }
-
-  void _insert(Database db) async {
-    await db.rawInsert(
-        "INSERT INTO usuario(idusuario,usuario,password,credencial) values (1,'admin','admin',1)");
-    await db.rawInsert(
-        "INSERT INTO usuario(idusuario,usuario,password,credencial) values (2,'misa','misa',2)");
-    await db.rawInsert(
-        "INSERT INTO usuario(idusuario,usuario,password,credencial) values (3,'kath','kath',2)");
-    await db.rawInsert(
-        "INSERT INTO usuario(idusuario,usuario,password,credencial) values (4,'suyin','suyin',3)");
   }
 }

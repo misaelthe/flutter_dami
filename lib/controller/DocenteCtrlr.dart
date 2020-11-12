@@ -1,4 +1,5 @@
 import 'package:flutter_dami/db/DBCibertec.dart';
+import 'package:flutter_dami/model/Alumno.dart';
 import 'package:flutter_dami/model/Usuario.dart';
 
 import '../db/DBCibertec.dart';
@@ -14,4 +15,6 @@ class DocenteCtrl {
         res.isNotEmpty ? res.map((c) => Usuario.fromMap(c)).toList() : null;
     return list;
   }
+
+  Future<List<Alumno>> getAlumno() async {}
 }

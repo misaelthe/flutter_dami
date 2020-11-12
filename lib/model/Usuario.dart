@@ -20,6 +20,12 @@ class Usuario {
     };
   }
 
+  Usuario.fromJson(Map<String, dynamic> json)
+      : _idusuario = json['idusuario'],
+        _usuario = json['usuario'],
+        _password = json['password'],
+        _credencial = json['credencial'];
+
   int get idusuario => _idusuario;
   String get usuario => _usuario;
   String get password => _password;

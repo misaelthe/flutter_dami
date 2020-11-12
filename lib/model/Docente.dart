@@ -44,6 +44,20 @@ class Docente {
     };
   }
 
+  /*
+factory Docente.fromJson(Map<String, dynamic> json) {
+    return Docente(
+      this._iddocente : json['iddocente'],
+      _nombre = json['nombre'],
+      _dni= json['dni'],
+      _idusuario= json['idusuario'],
+      _idcarrera= json['idcarrera'],
+      _telefono json['telefono'],
+      _correo json['correo'],
+      _direccion= json['direccion'],
+
+    );
+  }*/
   int get iddocente => _iddocente;
   String get nombre => _nombre;
   String get dni => _dni;

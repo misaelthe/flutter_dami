@@ -1,7 +1,7 @@
 import 'package:flutter_dami/db/DBCibertec.dart';
 import 'package:flutter_dami/model/Usuario.dart';
 
-class UsuarioService {
+class MainService {
   DBCibertec con = new DBCibertec();
   var dbCibertec;
 
@@ -16,10 +16,11 @@ class UsuarioService {
 
   Future<Usuario> getUsuarioBy(String usuario, String password) async {
     dbCibertec = await con.database;
-    var res = await dbCibertec.rawQuery(
-        "SELECT * FROM usuario u WHERE u.usuario = '$usuario' and u.password = '$password'");
-    if (res.length > 0) {
-      return new Usuario.fromMap(res.first);
+    var resultado = await dbCibertec.rawQuery(
+        "SELECT * FROM usuario u WHERE u.usuario = ? and u.password = ?",
+        [usuario, password]);
+    if (resultado.length > 0) {
+      return new Usuario.fromMap(resultado.first);
     }
     return null;
   }
