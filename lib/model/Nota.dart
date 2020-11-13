@@ -36,6 +36,17 @@ class Nota {
     };
   }
 
+  Nota.fromJson(Map<String, dynamic> json)
+      : _idnota = json['idnota'],
+        _idclase = json['idclase'],
+        _idalumno = json['idalumno'],
+        _e1 = json['e1'],
+        _e2 = json['e2'],
+        _ep = json['ep'],
+        _e3 = json['e3'],
+        _ef = json['ef'],
+        _promedio = json['promedio'];
+
   int get idnota => _idnota;
   int get idclase => idclase;
   int get idalumno => _idalumno;

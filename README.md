@@ -1,3 +1,5 @@
+# 0.7.5
+    Mapeo de Entidades necesarias para el Alumno
 # 0.7.4
     Login de Usuario conectado exitosamente a Base de Datos remota
     Error al loguearse incorrectamente

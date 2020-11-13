@@ -17,6 +17,11 @@ class Alumno_Clase {
     };
   }
 
+  Alumno_Clase.fromJson(Map<String, dynamic> json)
+      : _idalumno_clase = json['idalumno_clase'],
+        _idalumno = json['idalumno'],
+        _idclase = json['idclase'];
+
   int get idalumno_clase => _idalumno_clase;
   int get idalumno => _idalumno;
   int get idclase => _idclase;
