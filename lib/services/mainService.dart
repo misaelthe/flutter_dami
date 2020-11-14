@@ -1,5 +1,8 @@
 import 'package:flutter_dami/db/DBCibertec.dart';
 import 'package:flutter_dami/model/Alumno.dart';
+import 'package:flutter_dami/model/Clase.dart';
+import 'package:flutter_dami/model/Curso.dart';
+import 'package:flutter_dami/model/Docente.dart';
 import 'package:flutter_dami/model/Usuario.dart';
 
 class MainService {
@@ -24,6 +27,33 @@ class MainService {
     return res;
   }
 
+  Future<int> insertDocente(Docente docente) async {
+    dbCibertec = await con.database;
+    int res = await dbCibertec.insert(
+      "docente",
+      docente.toMap(),
+    );
+    return res;
+  }
+
+  Future<int> insertClase(Clase clase) async {
+    dbCibertec = await con.database;
+    int res = await dbCibertec.insert(
+      "clase",
+      clase.toMap(),
+    );
+    return res;
+  }
+
+  Future<int> insertCurso(Curso curso) async {
+    dbCibertec = await con.database;
+    int res = await dbCibertec.insert(
+      "curso",
+      curso.toMap(),
+    );
+    return res;
+  }
+
   Future<Usuario> getUsuarioBy(String usuario, String password) async {
     dbCibertec = await con.database;
     var resultado = await dbCibertec.rawQuery(
@@ -41,5 +71,13 @@ class MainService {
     List<Usuario> list =
         res.isNotEmpty ? res.map((c) => Usuario.fromMap(c)).toList() : null;
     return list;
+  }
+
+  void deleteDB() async {
+    dbCibertec = await con.database;
+    await dbCibertec.delete("usuario");
+    await dbCibertec.delete("alumno");
+    await dbCibertec.delete("docente");
+    print("elimino el suaurio");
   }
 }

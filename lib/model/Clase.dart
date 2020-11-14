@@ -26,9 +26,9 @@ class Clase {
 
   Clase.fromJson(Map<String, dynamic> json)
       : _idclase = json['idclase'],
-        _idseccion = json['idseccion'],
-        _idcurso = json['idcurso'],
-        _iddocente = json['iddocente'],
+        _idseccion = json['seccion']['idseccion'],
+        _idcurso = json['curso']['idcurso'],
+        _iddocente = json['docente']['iddocente'],
         _alum_ins = json['alum_ins'];
 
   int get idclase => _idclase;
