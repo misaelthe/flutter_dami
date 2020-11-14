@@ -1,4 +1,5 @@
 import 'package:flutter_dami/db/DBCibertec.dart';
+import 'package:flutter_dami/model/Alumno.dart';
 import 'package:flutter_dami/model/Usuario.dart';
 
 class MainService {
@@ -10,6 +11,15 @@ class MainService {
     int res = await dbCibertec.insert(
       "usuario",
       usuario.toMap(),
+    );
+    return res;
+  }
+
+  Future<int> insertAlumno(Alumno alumno) async {
+    dbCibertec = await con.database;
+    int res = await dbCibertec.insert(
+      "alumno",
+      alumno.toMap(),
     );
     return res;
   }

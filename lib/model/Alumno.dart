@@ -33,6 +33,16 @@ class Alumno {
     };
   }
 
+  Alumno.fromJson(Map<String, dynamic> json)
+      : _idalumno = json['idalumno'],
+        _nombre = json['nombre'],
+        _dni = json['dni'],
+        _idusuario = json['usuario']['idusuario'],
+        _telefono = json['telefono'],
+        _correo = json['correo'],
+        _direccion = json['direccion'],
+        _fecnac = json['fecnac'];
+
   int get idalumno => _idalumno;
   String get nombre => _nombre;
   String get dni => _dni;

@@ -14,7 +14,12 @@ class LoginCtrl {
   Usuario _usuario;
 
   login(String usuario, String password) async {
-    await rest.getUsuario(usuario, password).then((value) => _usuario = value);
+    await rest
+        .getUsuario(usuario, password)
+        .then((value) => _usuario = value)
+        .catchError((Object error) {
+      _usuario = null;
+    });
     return _usuario;
   }
 

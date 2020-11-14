@@ -1,3 +1,5 @@
+# 0.7.6
+    Error solucionado del login
 # 0.7.5
     Mapeo de Entidades necesarias para el Alumno
 # 0.7.4
