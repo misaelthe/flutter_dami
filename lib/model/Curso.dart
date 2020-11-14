@@ -21,16 +21,11 @@ class Curso {
     };
   }
 
-  Curso.fromJson(Map<String, dynamic> json) {
-    List<List<num>> cursos = json['curso'];
-    for (var curso in cursos) {
-      print("entro al arreglo de cursos");
-      _idcurso = json['idcurso'];
-      _nombre = json['nombre'];
-      _idcarrera = json['carrera']['idcarrera'];
-      _ciclo = json['ciclo'];
-    }
-  }
+  Curso.fromJson(Map<String, dynamic> json)
+      : _idcurso = json['idcurso'],
+        _nombre = json['nombre'],
+        _idcarrera = json['carrera']['idcarrera'],
+        _ciclo = json['ciclo'];
 
   int get idcurso => _idcurso;
   String get nombre => _nombre;

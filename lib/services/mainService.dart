@@ -73,11 +73,33 @@ class MainService {
     return list;
   }
 
-  void deleteDB() async {
+  Future<List<Docente>> getAllDocente() async {
+    dbCibertec = await con.database;
+    var res = await dbCibertec.query("docente");
+    List<Docente> list =
+        res.isNotEmpty ? res.map((c) => Docente.fromMap(c)).toList() : null;
+    return list;
+  }
+
+  getAllCurso() async {
+    dbCibertec = await con.database;
+    var res = await dbCibertec.query("curso");
+    print(res);
+  }
+
+  deleteDB() async {
     dbCibertec = await con.database;
     await dbCibertec.delete("usuario");
     await dbCibertec.delete("alumno");
     await dbCibertec.delete("docente");
-    print("elimino el suaurio");
+    await dbCibertec.delete("administrador");
+    await dbCibertec.delete("turno");
+    await dbCibertec.delete("carrera");
+    await dbCibertec.delete("curso");
+    await dbCibertec.delete("seccion");
+    await dbCibertec.delete("clase");
+    await dbCibertec.delete("alumno_clase");
+    await dbCibertec.delete("nota");
+    await dbCibertec.delete("matricula");
   }
 }

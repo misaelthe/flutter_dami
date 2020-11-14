@@ -13,11 +13,12 @@ class ApiRest {
   Future<Usuario> getUsuario(String usuario, String password) async {
     Usuario u = await service.getUsuarioBy(usuario, password);
     if (u != null) {
-      service.deleteDB();
+      await service.deleteDB();
       print("existe la abi" + u.idusuario.toString());
       await getData(u);
       return u;
     } else {
+      await service.deleteDB();
       var response = await http.get(
           'https://cibertec-schoolar.herokuapp.com/rest/getUsuario?usuario=' +
               usuario +
@@ -42,38 +43,9 @@ class ApiRest {
   getData(Usuario u) async {
     var response;
     //SI ES PROFESOR ENTRA AQUI
-    print("antes de pedir credenciales");
     if (u.credencial == 2) {
-      Docente d;
-      response = await http.get(
-          'https://cibertec-schoolar.herokuapp.com/rest/getDocente?idusuario=' +
-              u.idusuario.toString());
-      print("antes de response sttausest");
-      if (response.statusCode == 200) {
-        try {
-          print("dentrodel if");
-          var json = await jsonDecode(response.body);
-          print("despues de la declaracion del json");
-          d = Docente.fromJson(json);
-          await service.insertDocente(d);
-          print(
-              "al mometo d extrae r docente del rest" + d.iddocente.toString());
-        } on Exception catch (e) {
-          print(e);
-        }
-        response = await http.get(
-            'https://cibertec-schoolar.herokuapp.com/rest/getCursoXDocente?iddocente=' +
-                d.iddocente.toString());
-        var json = await jsonDecode(response.body);
-        Curso cur = Curso.fromJson(json);
-        await service.insertCurso(cur);
-        /*response = await http.get(
-            'https://cibertec-schoolar.herokuapp.com/rest/getClaseXDocente?iddocente=' +
-                d.iddocente.toString());
-        json = await jsonDecode(response.body);
-        Clase c = Clase.fromJson(json);
-        await service.insertClase(c);*/
-      } else {}
+      Docente d = await getDocenteByUsuario(u);
+      await getCursosByDocente(d);
     }
     //SI ES ALUMNO ENTRA AQUI
     else if (u.credencial == 3) {
@@ -88,6 +60,67 @@ class ApiRest {
       } else {
         return null;
       }
+    }
+  }
+
+  Future<Docente> getDocenteByUsuario(Usuario u) async {
+    Docente d;
+    var response = await http.get(
+        'https://cibertec-schoolar.herokuapp.com/rest/getDocente?idusuario=' +
+            u.idusuario.toString());
+    if (response.statusCode == 200) {
+      try {
+        var json = await jsonDecode(response.body);
+        d = Docente.fromJson(json);
+        await service.insertDocente(d);
+        print("se agrego al docente");
+        return d;
+      } on Exception catch (e) {
+        print(e);
+      }
+    } else {
+      print("No hubo respuesta al obtener el docente");
+      return d;
+    }
+  }
+
+  getCursosByDocente(Docente d) async {
+    var response = await http.get(
+        'https://cibertec-schoolar.herokuapp.com/rest/getCursoXDocente?iddocente=' +
+            d.iddocente.toString());
+    if (response.statusCode == 200) {
+      try {
+        List json = await jsonDecode(response.body);
+        List<Curso> arCur = json.map((e) => new Curso.fromJson(e)).toList();
+        print("despues del array de cursos");
+        for (Curso c in arCur) {
+          await service.insertCurso(c);
+        }
+      } on Exception catch (e) {
+        print(e);
+      }
+    } else {
+      print("No se obtuvo respuesta de los cursos del docente");
+    }
+  }
+
+  getClasesByDocente(Docente d) async {
+    var response = await http.get(
+        'https://cibertec-schoolar.herokuapp.com/rest/getClaseXDocente?iddocente=' +
+            d.iddocente.toString());
+    if (response.statusCode == 200) {
+      try {
+        List json = await jsonDecode(response.body);
+        List<Clase> arCla = json.map((e) => new Clase.fromJson(e)).toList();
+        print("despues del array de cursos");
+        for (Clase c in arCla) {
+          //await service.insertCurso(c);
+        }
+      } on Exception catch (e) {
+        print(e);
+      }
+    } else {
+      print("No se obtuvo respuesta de los cursos del docente");
     }
   }
 }

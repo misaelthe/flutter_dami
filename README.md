@@ -1,3 +1,5 @@
+# 0.7.8
+    Rest del docente
 # 0.7.6
     Error solucionado del login
 # 0.7.5
