@@ -19,29 +19,32 @@ class ApiRest {
       return u;
     } else {
       await service.deleteDB();
-      var response = await http.get(
-          'https://cibertec-schoolar.herokuapp.com/rest/getUsuario?usuario=' +
-              usuario +
-              '&password=' +
-              password);
-      if (response.statusCode == 200) {
-        try {
-          var json = await jsonDecode(response.body);
-          Usuario u = Usuario.fromJson(json);
-          await getData(u);
-          await service.insertUsuario(u);
-          return u;
-        } on Exception catch (_) {
-          return null;
-        }
-      } else {
+      _getUsuario(usuario, password);
+    }
+  }
+
+  _getUsuario(String usuario, String password) async {
+    var response = await http.get(
+        'https://cibertec-schoolar.herokuapp.com/rest/getUsuario?usuario=' +
+            usuario +
+            '&password=' +
+            password);
+    if (response.statusCode == 200) {
+      try {
+        var json = await jsonDecode(response.body);
+        Usuario u = Usuario.fromJson(json);
+        await getData(u);
+        await service.insertUsuario(u);
+        return u;
+      } on Exception catch (_) {
         return null;
       }
+    } else {
+      return null;
     }
   }
 
   getData(Usuario u) async {
-    var response;
     //SI ES PROFESOR ENTRA AQUI
     if (u.credencial == 2) {
       Docente d = await getDocenteByUsuario(u);
@@ -49,20 +52,11 @@ class ApiRest {
     }
     //SI ES ALUMNO ENTRA AQUI
     else if (u.credencial == 3) {
-      response = await http.get(
-          'https://cibertec-schoolar.herokuapp.com/rest/getAlumno?idusuario=' +
-              u.idusuario.toString());
-      if (response.statusCode == 200) {
-        var json = await jsonDecode(response.body);
-        Alumno a = Alumno.fromJson(json);
-        await service.insertAlumno(a);
-        return u;
-      } else {
-        return null;
-      }
+      Alumno a = await getAlumnoByUsuario(u);
     }
   }
 
+///////////////////////////////METODOS PARA EL DOCENTE LOGUEADO
   Future<Docente> getDocenteByUsuario(Usuario u) async {
     Docente d;
     var response = await http.get(
@@ -114,13 +108,52 @@ class ApiRest {
         List<Clase> arCla = json.map((e) => new Clase.fromJson(e)).toList();
         print("despues del array de cursos");
         for (Clase c in arCla) {
-          //await service.insertCurso(c);
+          await service.insertClase(c);
         }
       } on Exception catch (e) {
         print(e);
       }
     } else {
       print("No se obtuvo respuesta de los cursos del docente");
+    }
+  }
+
+  getAlumnoByClase(Clase c) async {
+    /*var response = await http.get(
+        'https://cibertec-schoolar.herokuapp.com/rest/getClaseXDocente?iddocente=' +
+            d.iddocente.toString());
+    if (response.statusCode == 200) {
+      try {
+        List json = await jsonDecode(response.body);
+        List<Alumno> arCla = json.map((e) => new Clase.fromJson(e)).toList();
+        print("despues del array de cursos");
+        for (Clase c in arCla) {
+          await service.insertClase(c);
+        }
+      } on Exception catch (e) {
+        print(e);
+      }
+    } else {
+      print("No se obtuvo respuesta de los cursos del docente");
+    }*/
+  }
+
+///////////////////////////////METODOS PARA EL ALUMNO LOGUEADO
+  getAlumnoByUsuario(Usuario u) async {
+    var response = await http.get(
+        'https://cibertec-schoolar.herokuapp.com/rest/getAlumno?idusuario=' +
+            u.idusuario.toString());
+    if (response.statusCode == 200) {
+      try {
+        var json = await jsonDecode(response.body);
+        Alumno a = Alumno.fromJson(json);
+        await service.insertAlumno(a);
+        return u;
+      } on Exception catch (e) {
+        print(e);
+      }
+    } else {
+      print("No se obtuvo respuesta del alumno");
     }
   }
 }

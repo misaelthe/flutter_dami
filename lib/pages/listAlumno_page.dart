@@ -13,14 +13,14 @@ class ListAlumnoPage extends StatelessWidget {
   }
 
   fillDataTable() async {
-    await docenteCtrl.getAlumno().then((value) => {
+    /*await docenteCtrl.getAlumno().then((value) => {
           value.forEach((element) {
             rows.add(DataRow(cells: [
               DataCell(Text(element.idalumno.toString())),
               DataCell(Text(element.nombre))
             ]));
           })
-        });
+        });*/
   }
 
   SingleChildScrollView datatable() {

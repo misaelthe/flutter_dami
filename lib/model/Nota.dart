@@ -38,8 +38,8 @@ class Nota {
 
   Nota.fromJson(Map<String, dynamic> json)
       : _idnota = json['idnota'],
-        _idclase = json['idclase'],
-        _idalumno = json['idalumno'],
+        _idclase = json['clase']['idclase'],
+        _idalumno = json['alumno']['idalumno'],
         _e1 = json['e1'],
         _e2 = json['e2'],
         _ep = json['ep'],

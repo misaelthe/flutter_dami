@@ -16,11 +16,11 @@ class CoursesDocente extends StatelessWidget {
   listCoursesForTeacher() {
     DocenteCtrl c = new DocenteCtrl();
     List<Widget> tem = new List<Widget>();
-    c.getCoursesForTeacher(1).then((value) {
+    /*.getCoursesForTeacher(1).then((value) {
       for (final Usuario u in value) {
         tem.add(Text(u.usuario));
       }
-    });
+    });*/
     return new Row(children: tem);
   }
 }

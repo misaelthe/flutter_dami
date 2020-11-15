@@ -9,6 +9,7 @@ class MainService {
   DBCibertec con = new DBCibertec();
   var dbCibertec;
 
+///////////////////////////////////////////////METODOS PARA INSERTAR
   Future<int> insertUsuario(Usuario usuario) async {
     dbCibertec = await con.database;
     int res = await dbCibertec.insert(
@@ -54,6 +55,7 @@ class MainService {
     return res;
   }
 
+///////////////////////////////////////////////METODOS PARA BUSCAR
   Future<Usuario> getUsuarioBy(String usuario, String password) async {
     dbCibertec = await con.database;
     var resultado = await dbCibertec.rawQuery(
@@ -63,6 +65,15 @@ class MainService {
       return new Usuario.fromMap(resultado.first);
     }
     return null;
+  }
+
+  Future<List<Clase>> getClasesByProfesor(int iddocente) async {
+    dbCibertec = await con.database;
+    var res = await dbCibertec
+        .rawQuery("SELECT * FROM clase c WHERE c.iddocente = ?", [iddocente]);
+    List<Clase> list =
+        res.isNotEmpty ? res.map((c) => Clase.fromMap(c)).toList() : null;
+    return list;
   }
 
   Future<List<Usuario>> getAllUsuario() async {
