@@ -130,9 +130,9 @@ class _LoginPageState extends State<LoginPage> {
         preferences.setBool("isLoggedIn", true);
         preferences.setInt("idusuario", user.idusuario);
         preferences.setInt("credencial", user.credencial);
-        path = user.credencial == 1
+        path = user.credencial == 2
             ? "/homePageDocente"
-            : (user.credencial == 2 ? "/homePageAlumno" : "/homePageAlumno");
+            : (user.credencial == 3 ? "/homePageAlumno" : "/homePageDocente");
         Navigator.of(context).pushNamed(path);
       }
     }

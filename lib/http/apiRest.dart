@@ -51,16 +51,12 @@ class ApiRest {
     if (u.credencial == 2) {
       print("entro con la credencial docente");
       Docente d = await getDocenteByUsuario(u);
-      await getCursosByDocente(d);
-      List<Clase> arCla = await getClasesByDocente(d);
-      List<Alumno_Clase> arAlumCla;
-      for (Clase c in arCla) {
-        arAlumCla = await getAlumnosClaseByClase(c);
-        await getAlumnosByClase(c);
-        for (Alumno_Clase alcla in arAlumCla) {
-          await getNotaByClaseByAlumno(alcla.idclase, alcla.idalumno);
-        }
-      }
+      service.getAllAlumno();
+      await getCursosDictadosByDocente(d);
+      await getClasesDictadasByDocente(d);
+      await getAlumnosClaseByDocente(d);
+      await getAlumnosByDocente(d);
+      await getNotasByDocente(d);
     }
     //SI ES ALUMNO ENTRA AQUI
     else if (u.credencial == 3) {
@@ -90,7 +86,7 @@ class ApiRest {
     }
   }
 
-  getCursosByDocente(Docente d) async {
+  getCursosDictadosByDocente(Docente d) async {
     var response = await http.get(
         'https://cibertec-schoolar.herokuapp.com/rest/getCursoXDocente?iddocente=' +
             d.iddocente.toString());
@@ -111,7 +107,7 @@ class ApiRest {
     }
   }
 
-  Future<List<Clase>> getClasesByDocente(Docente d) async {
+  getClasesDictadasByDocente(Docente d) async {
     var response = await http.get(
         'https://cibertec-schoolar.herokuapp.com/rest/getClaseXDocente?iddocente=' +
             d.iddocente.toString());
@@ -119,12 +115,10 @@ class ApiRest {
       try {
         List json = await jsonDecode(response.body);
         List<Clase> arCla = json.map((e) => new Clase.fromJson(e)).toList();
-
         for (Clase c in arCla) {
           await service.insertClase(c);
         }
         print("se insertaron las clases del docente");
-        return arCla;
       } on Exception catch (e) {
         print("error en getClasesByDocente");
         print(e);
@@ -134,10 +128,10 @@ class ApiRest {
     }
   }
 
-  Future<List<Alumno_Clase>> getAlumnosClaseByClase(Clase c) async {
+  Future<List<Alumno_Clase>> getAlumnosClaseByDocente(Docente d) async {
     var response = await http.get(
-        'https://cibertec-schoolar.herokuapp.com/rest/getAlumnoClaseXClase?idclase=' +
-            c.idclase.toString());
+        'https://cibertec-schoolar.herokuapp.com/rest/getAlumnoClaseXDocente?iddocente=' +
+            d.iddocente.toString());
     if (response.statusCode == 200) {
       try {
         List json = await jsonDecode(response.body);
@@ -147,7 +141,6 @@ class ApiRest {
           await service.insertAlumno_Clase(a);
         }
         print("se inserto el alumnoclase");
-        return tem;
       } on Exception catch (e) {
         print("error en Alumno_Clase");
         print(e);
@@ -157,15 +150,16 @@ class ApiRest {
     }
   }
 
-  getAlumnosByClase(Clase c) async {
+  getAlumnosByDocente(Docente d) async {
     var response = await http.get(
-        'https://cibertec-schoolar.herokuapp.com/rest/getAlumnosXClase?idclase=' +
-            c.idclase.toString());
+        'https://cibertec-schoolar.herokuapp.com/rest/getAlumnosXDocente?iddocente=' +
+            d.iddocente.toString());
     if (response.statusCode == 200) {
       try {
+        service.getAllAlumno();
         List json = await jsonDecode(response.body);
         List<Alumno> tem = json.map((e) => new Alumno.fromJson(e)).toList();
-        print("despues del array de cursos");
+        print("despues del array de alumnos");
         for (Alumno a in tem) {
           await service.insertAlumno(a);
         }
@@ -174,6 +168,28 @@ class ApiRest {
       }
     } else {
       print("No se obtuvo respuesta de los alumnos por clase");
+    }
+  }
+
+  getNotasByDocente(Docente d) async {
+    var response = await http.get(
+        'https://cibertec-schoolar.herokuapp.com/rest/getNotasXDocente?iddocente=' +
+            d.iddocente.toString());
+    if (response.statusCode == 200) {
+      try {
+        List json = await jsonDecode(response.body);
+        print(" ersta entrando getNotaByClaseByAlumno");
+        List<Nota> tem = json.map((e) => new Nota.fromJson(e)).toList();
+        for (Nota n in tem) {
+          await service.insertNota(n);
+        }
+        print(" insertado getNotaByClaseByAlumno");
+      } on Exception catch (e) {
+        print(" error en getNotaByClaseByAlumno");
+        print(e);
+      }
+    } else {
+      print("No se obtuvo respuesta del alumno");
     }
   }
 
@@ -197,25 +213,5 @@ class ApiRest {
   }
 
 ///////////////////////////////METODOS DE AMBOS
-  getNotaByClaseByAlumno(int idclase, int idalumno) async {
-    var response = await http.get(
-        'https://cibertec-schoolar.herokuapp.com/rest/getNotaXClaseXAlumno?idclase=' +
-            idclase.toString() +
-            '&idalumno=' +
-            idalumno.toString());
-    if (response.statusCode == 200) {
-      try {
-        var json = await jsonDecode(response.body);
-        print(" ersta entrando getNotaByClaseByAlumno");
-        Nota n = Nota.fromJson(json);
-        await service.insertNota(n);
-        print(" insertado getNotaByClaseByAlumno");
-      } on Exception catch (e) {
-        print(" error en getNotaByClaseByAlumno");
-        print(e);
-      }
-    } else {
-      print("No se obtuvo respuesta del alumno");
-    }
-  }
+
 }

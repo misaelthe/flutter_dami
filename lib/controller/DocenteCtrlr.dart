@@ -21,8 +21,7 @@ class DocenteCtrl {
   }
 
   Future<List<Clase>> getClasesByDocente(int iddocente) async {
-    List<Clase> tem = await service.getClasesByProfesor(iddocente);
-    return tem;
+    return await service.getClasesByProfesor(iddocente);
   }
 
   Future<List<Alumno>> getAlumnosByClase(int idclase) async {
