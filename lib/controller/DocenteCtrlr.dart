@@ -1,9 +1,7 @@
 import 'package:flutter_dami/db/DBCibertec.dart';
 import 'package:flutter_dami/model/Alumno.dart';
 import 'package:flutter_dami/model/Clase.dart';
-import 'package:flutter_dami/model/Curso.dart';
 import 'package:flutter_dami/model/Nota.dart';
-import 'package:flutter_dami/model/Usuario.dart';
 import 'package:flutter_dami/services/mainService.dart';
 
 import '../db/DBCibertec.dart';
@@ -17,14 +15,13 @@ class DocenteCtrl {
     return tem;
   }
 
-  Future<List<Alumno>> getAlumnosByClase(int idalumno) async {
-    /*List<Alumno> tem = await service.getClasesByProfesor(iddocente);
-    return tem;*/
+  Future<List<Alumno>> getAlumnosByClase(int idclase) async {
+    List<Alumno> tem = await service.getAlumnosByClase(idclase);
+    return tem;
   }
 
-  Future<List<Alumno>> getNotasByClaseByAlumno(
-      int idclase, int idalumno) async {
-    /*List<Nota> tem = await service.getClasesByProfesor(iddocente);
-    return tem;*/
+  Future<Nota> getNotaByClaseByAlumno(int idclase, int idalumno) async {
+    Nota tem = await service.getNotaByClaseByAlumno(idclase, idalumno);
+    return tem;
   }
 }

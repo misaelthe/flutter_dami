@@ -1,8 +1,10 @@
 import 'package:flutter_dami/db/DBCibertec.dart';
 import 'package:flutter_dami/model/Alumno.dart';
+import 'package:flutter_dami/model/Alumno_Clase.dart';
 import 'package:flutter_dami/model/Clase.dart';
 import 'package:flutter_dami/model/Curso.dart';
 import 'package:flutter_dami/model/Docente.dart';
+import 'package:flutter_dami/model/Nota.dart';
 import 'package:flutter_dami/model/Usuario.dart';
 
 class MainService {
@@ -55,6 +57,24 @@ class MainService {
     return res;
   }
 
+  Future<int> insertAlumno_Clase(Alumno_Clase al_cla) async {
+    dbCibertec = await con.database;
+    int res = await dbCibertec.insert(
+      "alumno_clase",
+      al_cla.toMap(),
+    );
+    return res;
+  }
+
+  Future<int> insertNota(Nota nota) async {
+    dbCibertec = await con.database;
+    int res = await dbCibertec.insert(
+      "nota",
+      nota.toMap(),
+    );
+    return res;
+  }
+
 ///////////////////////////////////////////////METODOS PARA BUSCAR
   Future<Usuario> getUsuarioBy(String usuario, String password) async {
     dbCibertec = await con.database;
@@ -74,6 +94,26 @@ class MainService {
     List<Clase> list =
         res.isNotEmpty ? res.map((c) => Clase.fromMap(c)).toList() : null;
     return list;
+  }
+
+  Future<List<Alumno>> getAlumnosByClase(int idclase) async {
+    dbCibertec = await con.database;
+    var res = await dbCibertec.rawQuery(
+        "SELECT * FROM alumno a,alumno_clase ac WHERE a.idalumno = ac.idalumno and ac.idclase = ?",
+        [idclase]);
+    List<Alumno> list =
+        res.isNotEmpty ? res.map((c) => Alumno.fromMap(c)).toList() : null;
+    return list;
+  }
+
+  Future<Nota> getNotaByClaseByAlumno(int idclase, int idalumno) async {
+    dbCibertec = await con.database;
+    var res = await dbCibertec.rawQuery(
+        "SELECT * FROM nota n WHERE n.idclase = ?, n.idalumno = ?",
+        [idclase, idalumno]);
+    if (res.length > 0) {
+      return new Nota.fromMap(res.first);
+    }
   }
 
   Future<List<Usuario>> getAllUsuario() async {

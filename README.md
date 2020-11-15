@@ -1,3 +1,5 @@
+# 0.8.2
+    Metodos para mostrar las notas del Alumno en Docente agregados
 # 0.7.9
 # 0.7.8
     Rest del docente

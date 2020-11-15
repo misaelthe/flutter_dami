@@ -1,7 +1,9 @@
 import 'package:flutter_dami/model/Alumno.dart';
+import 'package:flutter_dami/model/Alumno_Clase.dart';
 import 'package:flutter_dami/model/Clase.dart';
 import 'package:flutter_dami/model/Curso.dart';
 import 'package:flutter_dami/model/Docente.dart';
+import 'package:flutter_dami/model/Nota.dart';
 import 'package:flutter_dami/services/mainService.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
@@ -49,6 +51,15 @@ class ApiRest {
     if (u.credencial == 2) {
       Docente d = await getDocenteByUsuario(u);
       await getCursosByDocente(d);
+      List<Clase> arCla = await getClasesByDocente(d);
+      List<Alumno_Clase> arAlumCla;
+      for (Clase c in arCla) {
+        arAlumCla = await getAlumnosClaseByClase(c);
+        await getAlumnosByClase(c);
+        for (Alumno_Clase alcla in arAlumCla) {
+          await getNotaByClaseByAlumno(alcla.idclase, alcla.idalumno);
+        }
+      }
     }
     //SI ES ALUMNO ENTRA AQUI
     else if (u.credencial == 3) {
@@ -98,7 +109,7 @@ class ApiRest {
     }
   }
 
-  getClasesByDocente(Docente d) async {
+  Future<List<Clase>> getClasesByDocente(Docente d) async {
     var response = await http.get(
         'https://cibertec-schoolar.herokuapp.com/rest/getClaseXDocente?iddocente=' +
             d.iddocente.toString());
@@ -110,6 +121,7 @@ class ApiRest {
         for (Clase c in arCla) {
           await service.insertClase(c);
         }
+        return arCla;
       } on Exception catch (e) {
         print(e);
       }
@@ -118,24 +130,45 @@ class ApiRest {
     }
   }
 
-  getAlumnoByClase(Clase c) async {
-    /*var response = await http.get(
-        'https://cibertec-schoolar.herokuapp.com/rest/getClaseXDocente?iddocente=' +
-            d.iddocente.toString());
+  Future<List<Alumno_Clase>> getAlumnosClaseByClase(Clase c) async {
+    var response = await http.get(
+        'https://cibertec-schoolar.herokuapp.com/rest/getAlumnoClaseXClase?idclase=' +
+            c.idclase.toString());
     if (response.statusCode == 200) {
       try {
         List json = await jsonDecode(response.body);
-        List<Alumno> arCla = json.map((e) => new Clase.fromJson(e)).toList();
+        List<Alumno_Clase> tem =
+            json.map((e) => new Alumno_Clase.fromJson(e)).toList();
+        for (Alumno_Clase a in tem) {
+          await service.insertAlumno_Clase(a);
+        }
+        return tem;
+      } on Exception catch (e) {
+        print(e);
+      }
+    } else {
+      print("No se obtuvo respuesta de los alumnos por clase");
+    }
+  }
+
+  getAlumnosByClase(Clase c) async {
+    var response = await http.get(
+        'https://cibertec-schoolar.herokuapp.com/rest/getAlumnosXClase?idclase=' +
+            c.idclase.toString());
+    if (response.statusCode == 200) {
+      try {
+        List json = await jsonDecode(response.body);
+        List<Alumno> tem = json.map((e) => new Alumno.fromJson(e)).toList();
         print("despues del array de cursos");
-        for (Clase c in arCla) {
-          await service.insertClase(c);
+        for (Alumno a in tem) {
+          await service.insertAlumno(a);
         }
       } on Exception catch (e) {
         print(e);
       }
     } else {
-      print("No se obtuvo respuesta de los cursos del docente");
-    }*/
+      print("No se obtuvo respuesta de los alumnos por clase");
+    }
   }
 
 ///////////////////////////////METODOS PARA EL ALUMNO LOGUEADO
@@ -149,6 +182,26 @@ class ApiRest {
         Alumno a = Alumno.fromJson(json);
         await service.insertAlumno(a);
         return u;
+      } on Exception catch (e) {
+        print(e);
+      }
+    } else {
+      print("No se obtuvo respuesta del alumno");
+    }
+  }
+
+///////////////////////////////METODOS DE AMBOS
+  getNotaByClaseByAlumno(int idclase, int idalumno) async {
+    var response = await http.get(
+        'https://cibertec-schoolar.herokuapp.com/rest/getNotaXClaseXAlumno?idclase=' +
+            idclase.toString() +
+            '&idalumno=' +
+            idalumno.toString());
+    if (response.statusCode == 200) {
+      try {
+        var json = await jsonDecode(response.body);
+        Nota n = Nota.fromJson(json);
+        await service.insertNota(n);
       } on Exception catch (e) {
         print(e);
       }
