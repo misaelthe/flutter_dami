@@ -1,14 +1,23 @@
 import 'package:flutter_dami/db/DBCibertec.dart';
 import 'package:flutter_dami/model/Alumno.dart';
 import 'package:flutter_dami/model/Clase.dart';
+import 'package:flutter_dami/model/Docente.dart';
 import 'package:flutter_dami/model/Nota.dart';
 import 'package:flutter_dami/services/mainService.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../db/DBCibertec.dart';
 
 class DocenteCtrl {
   DBCibertec con = new DBCibertec();
   MainService service = new MainService();
+
+  Future<int> getIdDocente() async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    int idusuario = preferences.getInt("idusuario");
+    Docente d = await service.getDocenteBy(idusuario);
+    return d.iddocente;
+  }
 
   Future<List<Clase>> getClasesByDocente(int iddocente) async {
     List<Clase> tem = await service.getClasesByProfesor(iddocente);

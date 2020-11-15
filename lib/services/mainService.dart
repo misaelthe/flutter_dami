@@ -76,6 +76,16 @@ class MainService {
   }
 
 ///////////////////////////////////////////////METODOS PARA BUSCAR
+  Future<Docente> getDocenteBy(int idusuario) async {
+    dbCibertec = await con.database;
+    var res = await dbCibertec
+        .rawQuery("SELECT * FROM docente d WHERE d.idusuario = ?", [idusuario]);
+    if (res.length > 0) {
+      return new Docente.fromMap(res.first);
+    }
+    return null;
+  }
+
   Future<Usuario> getUsuarioBy(String usuario, String password) async {
     dbCibertec = await con.database;
     var resultado = await dbCibertec.rawQuery(
