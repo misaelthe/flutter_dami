@@ -126,6 +126,15 @@ class MainService {
     }
   }
 
+  Future<Curso> getCursoByClase(int idclase) async {
+    dbCibertec = await con.database;
+    var res = await dbCibertec
+        .rawQuery("SELECT * FROM curso c WHERE c.idcurso = ?", [idclase]);
+    if (res.length > 0) {
+      return new Curso.fromMap(res.first);
+    }
+  }
+
   Future<List<Usuario>> getAllUsuario() async {
     dbCibertec = await con.database;
     var res = await dbCibertec.query("usuario");

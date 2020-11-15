@@ -12,16 +12,32 @@ class _CoursesDocentePageState extends State<CoursesDocentePage> {
   int iddocente;
   @override
   Widget build(BuildContext context) {
-  setIdDocente();
+    setIdDocente();
 
     return Scaffold(
         appBar: AppBar(
-          title: Text("Cursos Dictados"),
+          title: Text("Clases Dictadas"),
         ),
-        body: Container(child: FutureBuilder(
-          future: docCtrl.getClasesByDocente(iddocente),
-          builder: (BuildContext context,),
-        )));
+        body: FutureBuilder<List<Clase>>(
+            future: docCtrl.getClasesByDocente(iddocente),
+            builder:
+                (BuildContext context, AsyncSnapshot<List<Clase>> snapshot) {
+              if (snapshot.hasData) {
+                return ListView.builder(
+                    itemCount: snapshot.data.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      Clase c = snapshot.data[index];
+                      return ListTile(
+                        title:
+                            Text(docCtrl.getCursoByClase(c.idclase).toString()),
+                        leading: Icon(Icons.accessibility),
+                        onTap: () => {},
+                      );
+                    });
+              } else {
+                return Center(child: CircularProgressIndicator());
+              }
+            }));
   }
 
   setIdDocente() async {

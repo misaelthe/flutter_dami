@@ -49,6 +49,7 @@ class ApiRest {
   getData(Usuario u) async {
     //SI ES PROFESOR ENTRA AQUI
     if (u.credencial == 2) {
+      print("entro con la credencial docente");
       Docente d = await getDocenteByUsuario(u);
       await getCursosByDocente(d);
       List<Clase> arCla = await getClasesByDocente(d);
@@ -102,6 +103,7 @@ class ApiRest {
           await service.insertCurso(c);
         }
       } on Exception catch (e) {
+        print("Error en el getCursosByDocente");
         print(e);
       }
     } else {
@@ -117,16 +119,18 @@ class ApiRest {
       try {
         List json = await jsonDecode(response.body);
         List<Clase> arCla = json.map((e) => new Clase.fromJson(e)).toList();
-        print("despues del array de cursos");
+
         for (Clase c in arCla) {
           await service.insertClase(c);
         }
+        print("se insertaron las clases del docente");
         return arCla;
       } on Exception catch (e) {
+        print("error en getClasesByDocente");
         print(e);
       }
     } else {
-      print("No se obtuvo respuesta de los cursos del docente");
+      print("No se obtuvo respuesta de los clases del docente");
     }
   }
 
@@ -142,8 +146,10 @@ class ApiRest {
         for (Alumno_Clase a in tem) {
           await service.insertAlumno_Clase(a);
         }
+        print("se inserto el alumnoclase");
         return tem;
       } on Exception catch (e) {
+        print("error en Alumno_Clase");
         print(e);
       }
     } else {
@@ -200,9 +206,12 @@ class ApiRest {
     if (response.statusCode == 200) {
       try {
         var json = await jsonDecode(response.body);
+        print(" ersta entrando getNotaByClaseByAlumno");
         Nota n = Nota.fromJson(json);
         await service.insertNota(n);
+        print(" insertado getNotaByClaseByAlumno");
       } on Exception catch (e) {
+        print(" error en getNotaByClaseByAlumno");
         print(e);
       }
     } else {

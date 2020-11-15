@@ -147,18 +147,24 @@ class DocenteHomePage extends StatelessWidget {
                 ),
                 ListTile(
                   leading: Icon(Icons.message),
-                  title: Text('Registrar Notas'),
+                  title: Text('Registrar Nota'),
+                  onTap: () => {goPageListClasesByDocente(context)},
                 ),
                 ListTile(
                   leading: Icon(Icons.account_circle),
-                  title: Text('Profile'),
+                  title: Text('Perfil'),
                 ),
                 ListTile(
                   leading: Icon(Icons.settings),
-                  title: Text('Settings'),
-                  onTap: () {
-                    iraPageAlumno(context);
-                  },
+                  title: Text('Ver Horario'),
+                ),
+                ListTile(
+                  leading: Icon(Icons.settings),
+                  title: Text('Pago'),
+                ),
+                ListTile(
+                  leading: Icon(Icons.settings),
+                  title: Text('Mensajeria'),
                 ),
                 ListTile(
                   leading: Icon(Icons.message),
@@ -247,5 +253,9 @@ class DocenteHomePage extends StatelessWidget {
 
   iraPageAlumno(BuildContext context) async {
     Navigator.of(context).pushNamed("/homePageAlumno");
+  }
+
+  goPageListClasesByDocente(BuildContext context) async {
+    Navigator.of(context).pushNamed("/pageCoursesDocente");
   }
 }

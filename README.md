@@ -1,3 +1,6 @@
+# 0.8.4
+    Datos declarados incorrectamente en la Bd, arreglado
+    Interfaz de CursosByDocente configurado
 # 0.8.2
     Metodos para mostrar las notas del Alumno en Docente agregados
 # 0.7.9

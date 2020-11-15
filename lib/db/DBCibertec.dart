@@ -40,12 +40,12 @@ class DBCibertec {
     await db.execute(
         "CREATE TABLE seccion(idseccion INTEGER primary key,codigo TEXT,idcarrera INTEGER,ciclo INTEGER)");
     await db.execute(
-        "CREATE TABLE clase(idclase INTEGER primary key,idseccion TEXT,idcurso INTEGER,iddocente INTEGER,alum_ins INTEGER)");
+        "CREATE TABLE clase(idclase INTEGER primary key,idseccion INTEGER,idcurso INTEGER,iddocente INTEGER,alum_ins INTEGER)");
     await db.execute(
-        "CREATE TABLE alumno_clase(idalumno_clase INTEGER primary key,idalumno TEXT,idclase INTEGER)");
+        "CREATE TABLE alumno_clase(idalumno_clase INTEGER primary key,idalumno INTEGER,idclase INTEGER)");
     await db.execute(
-        "CREATE TABLE nota(idnota INTEGER primary key,idclase TEXT,idalumno INTEGER,e1 INTEGER,e2 INTEGER,ep INTEGER,e3 INTEGER,ef INTEGER,promedio INTEGER)");
+        "CREATE TABLE nota(idnota INTEGER primary key,idclase INTEGER,idalumno INTEGER,e1 INTEGER,e2 INTEGER,ep INTEGER,e3 INTEGER,ef INTEGER,promedio INTEGER)");
     await db.execute(
-        "CREATE TABLE matricula(idmatricula INTEGER primary key,idalumno INTEGER,periodo TEXT,ciclo INTEGER,year INTEGER,idcarrera INTEGER,idturno TEXT)");
+        "CREATE TABLE matricula(idmatricula INTEGER primary key,idalumno INTEGER,periodo TEXT,ciclo INTEGER,year INTEGER,idcarrera INTEGER,idturno INTEGER)");
   }
 }
