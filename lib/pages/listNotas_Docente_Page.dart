@@ -1,11 +1,56 @@
-import 'package:flutter/cupertino.dart';
-
+import 'package:async/async.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_dami/controller/DocenteCtrlr.dart';
 
-class RegistrarNotaPage extends StatelessWidget {
+class ListarNotasDocentePage extends StatefulWidget {
+  final int idalumno;
+  final int idclase;
+  const ListarNotasDocentePage({Key key, this.idalumno, this.idclase})
+      : super(key: key);
+  @override
+  _ListarNotasDocentePageState createState() => _ListarNotasDocentePageState();
+}
+
+class _ListarNotasDocentePageState extends State<ListarNotasDocentePage> {
+  DocenteCtrl docCtrl = new DocenteCtrl();
+  List<Widget> _arListTile;
+  bool loading = true;
   final _formRegistrarNota = GlobalKey<FormState>();
   int _e1, _e2, _e3, _ep, _ef;
+
+  @override
+  void initState() {
+    //setArrayCursos();
+    super.initState();
+  }
+
+  /* setArrayCursos() async {
+    List<Widget> data = new List<Widget>();
+    int iddocente = await docCtrl.getIdDocente();
+    List<Clase> tem = await docCtrl.getClasesByDocente(iddocente);
+    for (Clase c in tem) {
+      Curso curso = await docCtrl.getCursoByClase(c.idclase);
+      data.add(new ListTile(
+        leading: Icon(
+          Icons.architecture,
+          size: 50,
+        ),
+        trailing: Icon(
+          Icons.arrow_forward_ios,
+          size: 30,
+        ),
+        title: Text(curso.nombre),
+        subtitle: Text("Ciclo: " + curso.ciclo.toString()),
+        onTap: () => {goPageListAlumnos(context, iddocente, c.idclase)},
+      ));
+    }
+    setState(() {
+      _arListTile = data;
+      loading = false;
+    });
+  }*/
+
   @override
   Widget build(BuildContext context) {
     var formRegistrarNota = new Form(
@@ -53,6 +98,9 @@ class RegistrarNotaPage extends StatelessWidget {
     );
 
     return Scaffold(
+      appBar: AppBar(
+        title: Text("Notas Obtenidas"),
+      ),
       body: formRegistrarNota,
     );
   }

@@ -4,6 +4,7 @@ import 'package:flutter_dami/controller/DocenteCtrlr.dart';
 import 'package:flutter_dami/model/Alumno.dart';
 import 'package:flutter_dami/model/Clase.dart';
 import 'package:flutter_dami/model/Curso.dart';
+import 'package:flutter_dami/pages/listNotas_Docente_Page.dart';
 
 class ListAlumnoPage extends StatefulWidget {
   final int iddocente;
@@ -40,7 +41,7 @@ class _ListAlumnoPageState extends State<ListAlumnoPage> {
         ),
         title: Text(a.nombre),
         subtitle: Text("Correo: " + a.correo),
-        onTap: () => {},
+        onTap: () => {goPageListNotas(context, a.idalumno, widget.idclase)},
       ));
     }
     setState(() {
@@ -58,5 +59,15 @@ class _ListAlumnoPageState extends State<ListAlumnoPage> {
         body: ListView(
           children: loading ? [] : _arListTile,
         ));
+  }
+
+  goPageListNotas(BuildContext context, int idal, int idcla) {
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => ListarNotasDocentePage(
+                  idalumno: idal,
+                  idclase: idcla,
+                )));
   }
 }

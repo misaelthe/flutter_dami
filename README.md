@@ -1,3 +1,6 @@
+# 0.8.9
+    Interfaces de registrarnota en docente y de visualizar nota en alumno añadidas
+    Navigator to registrarnota añadido funcionando
 # 0.8.8
     Interfaz de ListAlumno completada, con el listado de alumno correspondientes a una clase
 # 0.8.6
