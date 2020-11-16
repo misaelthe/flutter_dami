@@ -110,7 +110,7 @@ class MainService {
 
   Future<List<Alumno>> getAlumnosByClase(int idclase) async {
     dbCibertec = await con.database;
-    var res = await dbCibertec.rawQuery(
+    List res = await dbCibertec.rawQuery(
         "SELECT * FROM alumno a,alumno_clase ac WHERE a.idalumno = ac.idalumno and ac.idclase = ?",
         [idclase]);
     List<Alumno> list =

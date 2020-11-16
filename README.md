@@ -1,3 +1,5 @@
+# 0.8.8
+    Interfaz de ListAlumno completada, con el listado de alumno correspondientes a una clase
 # 0.8.6
     Error en el login fixed
 # 0.8.5
