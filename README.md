@@ -1,3 +1,6 @@
+# 0.8.5
+    Listando los cursos por docente
+    Error en el login
 # 0.8.4
     Datos declarados incorrectamente en la Bd, arreglado
     Interfaz de CursosByDocente configurado

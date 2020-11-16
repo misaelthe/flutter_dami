@@ -11,71 +11,52 @@ class CoursesDocentePage extends StatefulWidget {
 
 class _CoursesDocentePageState extends State<CoursesDocentePage> {
   DocenteCtrl docCtrl = new DocenteCtrl();
-  int iddocente;
   Clase claTem;
   Curso curTem;
   String nomCurso;
-  Future<List<Clase>> _clases;
+  List<Widget> _arListTile;
+  bool loading = true;
 
   @override
   void initState() {
+    setArrayCursos();
     super.initState();
-    //setIdDocente();
-    _clases = setClases() as Future<List<Clase>>;
-    print("impirme esto please");
   }
 
-  setClases() async {
-    int iddoc = await docCtrl.getIdDocente();
-    print(iddoc.toString());
-    return await docCtrl.getClasesByDocente(iddoc);
+  setArrayCursos() async {
+    List<Widget> data = new List<Widget>();
+    int iddocente = await docCtrl.getIdDocente();
+    List<Clase> tem = await docCtrl.getClasesByDocente(iddocente);
+    for (Clase c in tem) {
+      Curso curso = await docCtrl.getCursoByClase(c.idclase);
+      data.add(new ListTile(
+        leading: Icon(
+          Icons.architecture,
+          size: 50,
+        ),
+        trailing: Icon(
+          Icons.arrow_forward_ios,
+          size: 30,
+        ),
+        title: Text(curso.nombre),
+        subtitle: Text("Ciclo: " + curso.ciclo.toString()),
+        onTap: () => {},
+      ));
+    }
+    setState(() {
+      _arListTile = data;
+      loading = false;
+    });
   }
 
   @override
   Widget build(BuildContext context) {
-    print("antesito del scaffold");
     return Scaffold(
         appBar: AppBar(
           title: Text("Clases Dictadas"),
         ),
-        body: FutureBuilder<List<Clase>>(
-            future: _clases,
-            builder: (context, AsyncSnapshot<List<Clase>> snapshot) {
-              if (snapshot.hasData) {
-                return ListView.builder(
-                    itemCount: snapshot.data.length,
-                    itemBuilder: (BuildContext context, int index) {
-                      print("una iteracion");
-                      Clase c = snapshot.data[index];
-                      setCursoXClaseActual(c.idcurso);
-                      return ListTile(
-                        title: Text(nomCurso),
-                        leading: Icon(Icons.accessibility),
-                        onTap: () => {},
-                      );
-                    });
-              } else {
-                return Center(child: CircularProgressIndicator());
-              }
-            }));
+        body: ListView(
+          children: loading ? [] : _arListTile,
+        ));
   }
-
-  setIdDocente() async {
-    int iddoc = await docCtrl.getIdDocente();
-    setState(() {
-      iddocente = iddoc;
-    });
-  }
-
-  Future<List<Clase>> getClases() async {
-    return await docCtrl.getClasesByDocente(iddocente);
-  }
-
-  setCursoXClaseActual(int idclase) async {
-    String tem = await docCtrl.getCursoByClase(idclase);
-    setState(() {
-      nomCurso = tem;
-    });
-  }
-  //await docCtrl .getCursoByClase(c.idclase).toString()
 }

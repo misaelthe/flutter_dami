@@ -104,6 +104,7 @@ class MainService {
         .rawQuery("SELECT * FROM clase c WHERE iddocente = ?", [iddocente]);
     List<Clase> list =
         res.isNotEmpty ? res.map((c) => Clase.fromMap(c)).toList() : null;
+    print("se sta obteniendo data frmom docente" + list.length.toString());
     return list;
   }
 
