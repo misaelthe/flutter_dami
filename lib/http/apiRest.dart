@@ -15,13 +15,11 @@ class ApiRest {
   Future<Usuario> getUsuario(String usuario, String password) async {
     Usuario u = await service.getUsuarioBy(usuario, password);
     if (u != null) {
-      await service.deleteDB();
-      print("existe la abi" + u.idusuario.toString());
-      await getData(u);
       return u;
     } else {
       await service.deleteDB();
-      _getUsuario(usuario, password);
+      u = await _getUsuario(usuario, password);
+      return u;
     }
   }
 
@@ -51,7 +49,6 @@ class ApiRest {
     if (u.credencial == 2) {
       print("entro con la credencial docente");
       Docente d = await getDocenteByUsuario(u);
-      service.getAllAlumno();
       await getCursosDictadosByDocente(d);
       await getClasesDictadasByDocente(d);
       await getAlumnosClaseByDocente(d);

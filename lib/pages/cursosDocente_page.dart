@@ -40,7 +40,7 @@ class _CoursesDocentePageState extends State<CoursesDocentePage> {
         ),
         title: Text(curso.nombre),
         subtitle: Text("Ciclo: " + curso.ciclo.toString()),
-        onTap: () => {},
+        onTap: () => {goPageListAlumnos(context)},
       ));
     }
     setState(() {
@@ -59,4 +59,6 @@ class _CoursesDocentePageState extends State<CoursesDocentePage> {
           children: loading ? [] : _arListTile,
         ));
   }
+
+  goPageListAlumnos(BuildContext context) {}
 }

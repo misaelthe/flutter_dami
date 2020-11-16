@@ -1,3 +1,5 @@
+# 0.8.6
+    Error en el login fixed
 # 0.8.5
     Listando los cursos por docente
     Error en el login
