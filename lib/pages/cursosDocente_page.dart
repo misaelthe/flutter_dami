@@ -1,8 +1,8 @@
-import 'package:async/async.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dami/controller/DocenteCtrlr.dart';
 import 'package:flutter_dami/model/Clase.dart';
 import 'package:flutter_dami/model/Curso.dart';
+import 'package:flutter_dami/model/Seccion.dart';
 import 'package:flutter_dami/pages/listAlumno_page.dart';
 
 class CoursesDocentePage extends StatefulWidget {
@@ -27,6 +27,7 @@ class _CoursesDocentePageState extends State<CoursesDocentePage> {
     List<Clase> tem = await docCtrl.getClasesByDocente(iddocente);
     for (Clase c in tem) {
       Curso curso = await docCtrl.getCursoByClase(c.idclase);
+      Seccion seccion = await docCtrl.getSeccionByClase(c.idclase);
       data.add(new ListTile(
         leading: Icon(
           Icons.architecture,
@@ -37,7 +38,10 @@ class _CoursesDocentePageState extends State<CoursesDocentePage> {
           size: 30,
         ),
         title: Text(curso.nombre),
-        subtitle: Text("Ciclo: " + curso.ciclo.toString()),
+        subtitle: Text("Seccion: " +
+            seccion.codigo.toString() +
+            "Ciclo: " +
+            curso.ciclo.toString()),
         onTap: () => {goPageListAlumnos(context, iddocente, c.idclase)},
       ));
     }

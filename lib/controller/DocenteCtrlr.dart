@@ -28,6 +28,10 @@ class DocenteCtrl {
     return await service.getAlumnosByClase(idclase);
   }
 
+  getSeccionByClase(int idclase) async {
+    return await service.getSeccionByClase(idclase);
+  }
+
   Future<Nota> getNotaByClaseByAlumno(int idclase, int idalumno) async {
     Nota tem = await service.getNotaByClaseByAlumno(idclase, idalumno);
     return tem;

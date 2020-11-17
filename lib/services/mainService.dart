@@ -5,6 +5,7 @@ import 'package:flutter_dami/model/Clase.dart';
 import 'package:flutter_dami/model/Curso.dart';
 import 'package:flutter_dami/model/Docente.dart';
 import 'package:flutter_dami/model/Nota.dart';
+import 'package:flutter_dami/model/Seccion.dart';
 import 'package:flutter_dami/model/Usuario.dart';
 
 class MainService {
@@ -66,6 +67,15 @@ class MainService {
     return res;
   }
 
+  Future<int> insertSeccion(Seccion sec) async {
+    dbCibertec = await con.database;
+    int res = await dbCibertec.insert(
+      "seccion",
+      sec.toMap(),
+    );
+    return res;
+  }
+
   Future<int> insertNota(Nota nota) async {
     dbCibertec = await con.database;
     int res = await dbCibertec.insert(
@@ -76,16 +86,6 @@ class MainService {
   }
 
 ///////////////////////////////////////////////METODOS PARA BUSCAR
-  Future<Docente> getDocenteBy(int idusuario) async {
-    dbCibertec = await con.database;
-    var res = await dbCibertec
-        .rawQuery("SELECT * FROM docente d WHERE d.idusuario = ?", [idusuario]);
-    if (res.length > 0) {
-      return new Docente.fromMap(res.first);
-    }
-    return null;
-  }
-
   Future<Usuario> getUsuarioBy(String usuario, String password) async {
     dbCibertec = await con.database;
     var resultado = await dbCibertec.rawQuery(
@@ -93,6 +93,16 @@ class MainService {
         [usuario, password]);
     if (resultado.length > 0) {
       return new Usuario.fromMap(resultado.first);
+    }
+    return null;
+  }
+
+  Future<Docente> getDocenteBy(int idusuario) async {
+    dbCibertec = await con.database;
+    var res = await dbCibertec
+        .rawQuery("SELECT * FROM docente d WHERE d.idusuario = ?", [idusuario]);
+    if (res.length > 0) {
+      return new Docente.fromMap(res.first);
     }
     return null;
   }
@@ -106,6 +116,18 @@ class MainService {
         res.isNotEmpty ? res.map((c) => Clase.fromMap(c)).toList() : null;
     print("se sta obteniendo data frmom docente" + list.length.toString());
     return list;
+  }
+
+  Future<Seccion> getSeccionByClase(int idclase) async {
+    dbCibertec = await con.database;
+    print("entro al getclasesby porfesor q semustra en la interfaz");
+    var res = await dbCibertec.rawQuery(
+        "SELECT * FROM seccion s, clase c WHERE s.idseccion = c.idseccion and c.idclase = ?",
+        [idclase]);
+    if (res.length > 0) {
+      return new Seccion.fromMap(res.first);
+    }
+    return null;
   }
 
   Future<List<Alumno>> getAlumnosByClase(int idclase) async {
@@ -123,18 +145,14 @@ class MainService {
     var res = await dbCibertec.rawQuery(
         "SELECT * FROM nota n WHERE n.idclase = ?, n.idalumno = ?",
         [idclase, idalumno]);
-    if (res.length > 0) {
-      return new Nota.fromMap(res.first);
-    }
+    return new Nota.fromMap(res.first);
   }
 
   Future<Curso> getCursoByClase(int idclase) async {
     dbCibertec = await con.database;
     var res = await dbCibertec
         .rawQuery("SELECT * FROM curso c WHERE c.idcurso = ?", [idclase]);
-    if (res.length > 0) {
-      return new Curso.fromMap(res.first);
-    }
+    return new Curso.fromMap(res.first);
   }
 
   Future<List<Usuario>> getAllUsuario() async {
@@ -151,14 +169,6 @@ class MainService {
     print(res);
     List<Usuario> list =
         res.isNotEmpty ? res.map((c) => Usuario.fromMap(c)).toList() : null;
-    return list;
-  }
-
-  Future<List<Docente>> getAllDocente() async {
-    dbCibertec = await con.database;
-    var res = await dbCibertec.query("docente");
-    List<Docente> list =
-        res.isNotEmpty ? res.map((c) => Docente.fromMap(c)).toList() : null;
     return list;
   }
 

@@ -1,3 +1,5 @@
+# 0.9
+    Añadiendo seccion de los cursos a la interfaz
 # 0.8.9
     Interfaces de registrarnota en docente y de visualizar nota en alumno añadidas
     Navigator to registrarnota añadido funcionando

@@ -4,6 +4,7 @@ import 'package:flutter_dami/model/Clase.dart';
 import 'package:flutter_dami/model/Curso.dart';
 import 'package:flutter_dami/model/Docente.dart';
 import 'package:flutter_dami/model/Nota.dart';
+import 'package:flutter_dami/model/Seccion.dart';
 import 'package:flutter_dami/services/mainService.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
@@ -49,6 +50,7 @@ class ApiRest {
     if (u.credencial == 2) {
       print("entro con la credencial docente");
       Docente d = await getDocenteByUsuario(u);
+      await getSeccionesByDocente(d);
       await getCursosDictadosByDocente(d);
       await getClasesDictadasByDocente(d);
       await getAlumnosClaseByDocente(d);
@@ -58,28 +60,29 @@ class ApiRest {
     //SI ES ALUMNO ENTRA AQUI
     else if (u.credencial == 3) {
       Alumno a = await getAlumnoByUsuario(u);
+      await getSeccionesByAlumno(a);
     }
   }
 
 ///////////////////////////////METODOS PARA EL DOCENTE LOGUEADO
   Future<Docente> getDocenteByUsuario(Usuario u) async {
-    Docente d;
     var response = await http.get(
         'https://cibertec-schoolar.herokuapp.com/rest/getDocente?idusuario=' +
             u.idusuario.toString());
     if (response.statusCode == 200) {
       try {
         var json = await jsonDecode(response.body);
-        d = Docente.fromJson(json);
+        Docente d = Docente.fromJson(json);
         await service.insertDocente(d);
         print("se agrego al docente");
         return d;
       } on Exception catch (e) {
         print(e);
+        return null;
       }
     } else {
       print("No hubo respuesta al obtener el docente");
-      return d;
+      return null;
     }
   }
 
@@ -125,7 +128,7 @@ class ApiRest {
     }
   }
 
-  Future<List<Alumno_Clase>> getAlumnosClaseByDocente(Docente d) async {
+  getAlumnosClaseByDocente(Docente d) async {
     var response = await http.get(
         'https://cibertec-schoolar.herokuapp.com/rest/getAlumnoClaseXDocente?iddocente=' +
             d.iddocente.toString());
@@ -190,6 +193,26 @@ class ApiRest {
     }
   }
 
+  getSeccionesByDocente(Docente d) async {
+    var response = await http.get(
+        'https://cibertec-schoolar.herokuapp.com/rest/getSeccionesXDocente?iddocente=' +
+            d.iddocente.toString());
+    if (response.statusCode == 200) {
+      try {
+        List json = await jsonDecode(response.body);
+        print(" ersta entrando secicones");
+        List<Seccion> tem = json.map((e) => new Seccion.fromJson(e)).toList();
+        for (Seccion s in tem) {
+          await service.insertSeccion(s);
+        }
+      } on Exception catch (e) {
+        print(e);
+      }
+    } else {
+      print("No se obtuvo respuesta del alumno");
+    }
+  }
+
 ///////////////////////////////METODOS PARA EL ALUMNO LOGUEADO
   getAlumnoByUsuario(Usuario u) async {
     var response = await http.get(
@@ -209,6 +232,25 @@ class ApiRest {
     }
   }
 
+  getSeccionesByAlumno(Alumno a) async {
+    var response = await http.get(
+        'https://cibertec-schoolar.herokuapp.com/rest/getSeccionesXAlumno?idalumno=' +
+            a.idalumno.toString());
+    if (response.statusCode == 200) {
+      try {
+        List json = await jsonDecode(response.body);
+        print(" ersta entrando secicones");
+        List<Seccion> tem = json.map((e) => new Seccion.fromJson(e)).toList();
+        for (Seccion s in tem) {
+          await service.insertSeccion(s);
+        }
+      } on Exception catch (e) {
+        print(e);
+      }
+    } else {
+      print("No se obtuvo respuesta del alumno");
+    }
+  }
 ///////////////////////////////METODOS DE AMBOS
 
 }
