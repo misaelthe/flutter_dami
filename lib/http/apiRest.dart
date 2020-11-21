@@ -251,6 +251,16 @@ class ApiRest {
       print("No se obtuvo respuesta del alumno");
     }
   }
-///////////////////////////////METODOS DE AMBOS
 
+///////////////////////////////REGISTRAR NOTA
+  registrarNota(Nota nota) async {
+    var response = await http.post(
+        'https://cibertec-schoolar.herokuapp.com/rest/registrarNota',
+        body: nota.toJson(nota));
+    if (response.statusCode == 201) {
+      print("Se inserto correctamente");
+    } else {
+      print("No se obtuvo respuesta del alumno");
+    }
+  }
 }

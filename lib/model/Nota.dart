@@ -47,6 +47,28 @@ class Nota {
         _ef = json['ef'],
         _promedio = json['promedio'];
 
+  String toJson(Nota nota) {
+    String cadena = "idnota" +
+        nota._idnota.toString() +
+        "idclase" +
+        nota._idclase.toString() +
+        "idalumno" +
+        nota._idalumno.toString() +
+        "e1" +
+        nota._e1.toString() +
+        "e2" +
+        nota._e2.toString() +
+        "ep" +
+        nota._ep.toString() +
+        "e3" +
+        nota._e3.toString() +
+        "ef" +
+        nota._ef.toString() +
+        "promedio" +
+        nota._promedio.toString();
+    return cadena;
+  }
+
   int get idnota => _idnota;
   int get idclase => idclase;
   int get idalumno => _idalumno;
