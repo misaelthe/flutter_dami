@@ -61,6 +61,11 @@ class ApiRest {
     else if (u.credencial == 3) {
       Alumno a = await getAlumnoByUsuario(u);
       await getSeccionesByAlumno(a);
+      await getCursosDictadosByAlumno(a);
+      await getClasesDictadasByAlumno(a);
+      await getAlumnosClaseByAlumno(a);
+      await getAlumnosClaseByAlumno(a);
+      await getNotasByAlumno(a);
     }
   }
 
@@ -245,6 +250,92 @@ class ApiRest {
           await service.insertSeccion(s);
         }
       } on Exception catch (e) {
+        print(e);
+      }
+    } else {
+      print("No se obtuvo respuesta del alumno");
+    }
+  }
+
+  getCursosDictadosByAlumno(Alumno a) async {
+    var response = await http.get(
+        'https://cibertec-schoolar.herokuapp.com/rest/getCursoXAlumno?idalumno=' +
+            a.idalumno.toString());
+    if (response.statusCode == 200) {
+      try {
+        List json = await jsonDecode(response.body);
+        List<Curso> arCur = json.map((e) => new Curso.fromJson(e)).toList();
+        print("despues del array de cursos");
+        for (Curso c in arCur) {
+          await service.insertCurso(c);
+        }
+      } on Exception catch (e) {
+        print("Error en el getCursosByAlumno");
+        print(e);
+      }
+    } else {
+      print("No se obtuvo respuesta de los cursos del docente");
+    }
+  }
+
+  getClasesDictadasByAlumno(Alumno a) async {
+    var response = await http.get(
+        'https://cibertec-schoolar.herokuapp.com/rest/getClaseXAlumno?idalumno=' +
+            a.idalumno.toString());
+    if (response.statusCode == 200) {
+      try {
+        List json = await jsonDecode(response.body);
+        List<Clase> arCla = json.map((e) => new Clase.fromJson(e)).toList();
+        for (Clase c in arCla) {
+          await service.insertClase(c);
+        }
+        print("se insertaron las clases del docente");
+      } on Exception catch (e) {
+        print("error en getClasesByDocente");
+        print(e);
+      }
+    } else {
+      print("No se obtuvo respuesta de los clases del docente");
+    }
+  }
+
+  getAlumnosClaseByAlumno(Alumno a) async {
+    var response = await http.get(
+        'https://cibertec-schoolar.herokuapp.com/rest/getAlumnoClaseXAlumno?idalumno=' +
+            a.idalumno.toString());
+    if (response.statusCode == 200) {
+      try {
+        List json = await jsonDecode(response.body);
+        List<Alumno_Clase> tem =
+            json.map((e) => new Alumno_Clase.fromJson(e)).toList();
+        for (Alumno_Clase a in tem) {
+          await service.insertAlumno_Clase(a);
+        }
+        print("se inserto el alumnoclase");
+      } on Exception catch (e) {
+        print("error en Alumno_Clase");
+        print(e);
+      }
+    } else {
+      print("No se obtuvo respuesta de los alumnos por clase");
+    }
+  }
+
+  getNotasByAlumno(Alumno a) async {
+    var response = await http.get(
+        'https://cibertec-schoolar.herokuapp.com/rest/getNotasXAlumno?idalumno=' +
+            a.idalumno.toString());
+    if (response.statusCode == 200) {
+      try {
+        List json = await jsonDecode(response.body);
+        print(" ersta entrando getNotaByClaseByAlumno");
+        List<Nota> tem = json.map((e) => new Nota.fromJson(e)).toList();
+        for (Nota n in tem) {
+          await service.registrarNota(n);
+        }
+        print(" insertado getNotaByClaseByAlumno");
+      } on Exception catch (e) {
+        print(" error en getNotaByClaseByAlumno");
         print(e);
       }
     } else {
