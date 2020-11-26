@@ -1,4 +1,7 @@
-# 0.9.4
+# 0.9.5
+    Virtualmente la ap en lo que respecta a alumno deberia funcionar
+    Se mejora la interfaz de visualizar notas del alumno
+    Se agregaron los metodos para extraer la data del alumno del rest
 # 0.9.1
     Metodo para hacer post de las notas agregado
 # 0.9

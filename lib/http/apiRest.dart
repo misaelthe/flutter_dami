@@ -59,6 +59,7 @@ class ApiRest {
     }
     //SI ES ALUMNO ENTRA AQUI
     else if (u.credencial == 3) {
+      print("entro con la credencial alumno");
       Alumno a = await getAlumnoByUsuario(u);
       await getSeccionesByAlumno(a);
       await getCursosDictadosByAlumno(a);
@@ -333,7 +334,7 @@ class ApiRest {
         for (Nota n in tem) {
           await service.registrarNota(n);
         }
-        print(" insertado getNotaByClaseByAlumno");
+        print(" esta sacadno las notas de l alumno");
       } on Exception catch (e) {
         print(" error en getNotaByClaseByAlumno");
         print(e);

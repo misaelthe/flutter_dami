@@ -1,10 +1,8 @@
 import 'package:async/async.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dami/controller/AlumnoCtrl.dart';
-import 'package:flutter_dami/controller/DocenteCtrlr.dart';
 import 'package:flutter_dami/model/Clase.dart';
 import 'package:flutter_dami/model/Curso.dart';
-import 'package:flutter_dami/pages/listAlumno_page.dart';
 import 'package:flutter_dami/pages/listNotas_Alumno_Page.dart';
 
 class ListarCursosAlumnoPage extends StatefulWidget {
