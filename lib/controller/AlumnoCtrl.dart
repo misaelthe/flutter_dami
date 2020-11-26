@@ -26,7 +26,7 @@ class AlumnoCtrl {
   Future<Nota> getNotaByClase(int idclase) async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     int idusuario = preferences.getInt("idusuario");
-    Alumno d = await service.getAlumnoBy(idusuario);
-    return await service.getNotaByClaseByAlumno(idclase, d.idalumno);
+    Alumno a = await service.getAlumnoBy(idusuario);
+    return await service.getNotaByClaseByAlumno(idclase, a.idalumno);
   }
 }

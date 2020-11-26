@@ -23,7 +23,9 @@ class _ListarCursosAlumnoPageState extends State<ListarCursosAlumnoPage> {
   setArrayCursos() async {
     List<Widget> data = new List<Widget>();
     int idalumno = await alCtrl.getIdAlumno();
+    print(idalumno.toString() + "  ese se su id del alumn");
     List<Clase> tem = await alCtrl.getClasesByAlumno(idalumno);
+    print(tem.length.toString() + "  ese es la lonmg dela rray alumn");
     for (Clase c in tem) {
       Curso curso = await alCtrl.getCursoByClase(c.idclase);
       data.add(new ListTile(

@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_dami/pages/cursosDocente_page.dart';
 import 'package:flutter_dami/pages/alumno_page.dart';
 import 'package:flutter_dami/pages/docente_page.dart';
+import 'package:flutter_dami/pages/listCursos_Alumno_page.dart';
 import 'package:flutter_dami/pages/login_page.dart';
 import 'package:flutter/material.dart';
 
@@ -12,6 +13,7 @@ final routes = {
   '/homePageDocente': (BuildContext context) => new DocenteHomePage(),
   '/pageCoursesDocente': (BuildContext context) => new CoursesDocentePage(),
   '/homePageAlumno': (BuildContext context) => new AlumnoHomePage(),
+  '/pageCoursesAlumno': (BuildContext context) => new ListarCursosAlumnoPage(),
 };
 
 class MyApp extends StatelessWidget {

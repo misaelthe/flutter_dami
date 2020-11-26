@@ -1,3 +1,6 @@
+# 0.9.8
+    Listado de notas del alumno exitoso
+    Error y carga dos veces los cursos del alumno
 # 0.9.7
     Error al devolver alumno fixed
     Error con el codigo int en seccion fixed

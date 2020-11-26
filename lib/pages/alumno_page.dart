@@ -143,11 +143,12 @@ class AlumnoHomePage extends StatelessWidget {
                 ),
                 ListTile(
                   leading: Icon(Icons.message),
-                  title: Text('Messages'),
+                  title: Text('Perfil'),
                 ),
                 ListTile(
                   leading: Icon(Icons.account_circle),
-                  title: Text('Profile'),
+                  title: Text('Ver Notas'),
+                  onTap: () => {goPageListClasesByAlumno(context)},
                 ),
                 ListTile(
                   leading: Icon(Icons.account_circle),
@@ -236,5 +237,9 @@ class AlumnoHomePage extends StatelessWidget {
 
   signOut(BuildContext context) async {
     loginCtrl.signOut(context);
+  }
+
+  goPageListClasesByAlumno(BuildContext context) async {
+    Navigator.of(context).pushNamed("/pageCoursesAlumno");
   }
 }

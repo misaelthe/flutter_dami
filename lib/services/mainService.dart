@@ -140,13 +140,13 @@ class MainService {
 
   Future<List<Clase>> getClasesByAlumno(int idalumno) async {
     dbCibertec = await con.database;
-
     List res = await dbCibertec.rawQuery(
         "SELECT * FROM clase c,alumno_clase ac WHERE c.idclase = ac.idclase and ac.idalumno = ?",
         [idalumno]);
     List<Clase> list =
         res.isNotEmpty ? res.map((c) => Clase.fromMap(c)).toList() : null;
-    print("se sta obteniendo data frmom docente" + list.length.toString());
+    print("se sta obteniendo data de las clases del alumno" +
+        list.length.toString());
     return list;
   }
 
@@ -175,7 +175,7 @@ class MainService {
   Future<Nota> getNotaByClaseByAlumno(int idclase, int idalumno) async {
     dbCibertec = await con.database;
     var res = await dbCibertec.rawQuery(
-        "SELECT * FROM nota n WHERE n.idclase = ?, n.idalumno = ?",
+        "SELECT * FROM nota n WHERE n.idclase = ? and n.idalumno = ?",
         [idclase, idalumno]);
     return new Nota.fromMap(res.first);
   }

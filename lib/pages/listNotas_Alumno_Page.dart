@@ -13,7 +13,7 @@ class _ListarNotasAlumnoPageState extends State<ListarNotasAlumnoPage> {
   AlumnoCtrl alCtrl = new AlumnoCtrl();
   bool loading = true;
   final _formKey = GlobalKey<FormState>();
-  Form formFinal;
+  var formFinal;
   @override
   void initState() {
     setNotas();
@@ -22,19 +22,18 @@ class _ListarNotasAlumnoPageState extends State<ListarNotasAlumnoPage> {
 
   setNotas() async {
     Nota n = await alCtrl.getNotaByClase(widget.idclase);
-    Form formNota = new Form(
+    formFinal = new Form(
         key: _formKey,
         child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              Text("Evaluacion Teorica 1" + n.e1.toString()),
-              Text("Evaluacion Teorica 2" + n.e2.toString()),
-              Text("Evaluacion Parcial" + n.ep.toString()),
-              Text("Evaluacion Teorica 3" + n.e3.toString()),
-              Text("Evaluacion Final" + n.ef.toString()),
+              Text("Evaluacion Teorica 1: " + n.e1.toString()),
+              Text("Evaluacion Teorica 2: " + n.e2.toString()),
+              Text("Evaluacion Parcial: " + n.ep.toString()),
+              Text("Evaluacion Teorica 3: " + n.e3.toString()),
+              Text("Evaluacion Final: " + n.ef.toString()),
             ]));
     setState(() {
-      formFinal = formNota;
       loading = false;
     });
   }
@@ -42,11 +41,10 @@ class _ListarNotasAlumnoPageState extends State<ListarNotasAlumnoPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: Text("Notas Obtenidas"),
-        ),
-        body: ListView(
-          children: loading ? [] : formFinal,
-        ));
+      appBar: AppBar(
+        title: Text("Notas Obtenidas"),
+      ),
+      body: formFinal,
+    );
   }
 }
