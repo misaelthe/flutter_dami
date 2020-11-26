@@ -58,11 +58,11 @@ class MainService {
     return res;
   }
 
-  Future<int> insertAlumno_Clase(Alumno_Clase al_cla) async {
+  Future<int> insertAlumnoClase(Alumno_Clase alcla) async {
     dbCibertec = await con.database;
     int res = await dbCibertec.insert(
       "alumno_clase",
-      al_cla.toMap(),
+      alcla.toMap(),
     );
     return res;
   }
@@ -95,6 +95,7 @@ class MainService {
   }
 
 ///////////////////////////////////////////////METODOS PARA BUSCAR
+
   Future<Usuario> getUsuarioBy(String usuario, String password) async {
     dbCibertec = await con.database;
     var resultado = await dbCibertec.rawQuery(

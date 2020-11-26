@@ -1,3 +1,4 @@
+# 0.9.6
 # 0.9.5
     Virtualmente la ap en lo que respecta a alumno deberia funcionar
     Se mejora la interfaz de visualizar notas del alumno

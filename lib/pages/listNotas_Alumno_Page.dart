@@ -1,11 +1,6 @@
-import 'package:async/async.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dami/controller/AlumnoCtrl.dart';
-import 'package:flutter_dami/controller/DocenteCtrlr.dart';
-import 'package:flutter_dami/model/Clase.dart';
-import 'package:flutter_dami/model/Curso.dart';
 import 'package:flutter_dami/model/Nota.dart';
-import 'package:flutter_dami/pages/listAlumno_page.dart';
 
 class ListarNotasAlumnoPage extends StatefulWidget {
   final int idclase;
@@ -16,7 +11,6 @@ class ListarNotasAlumnoPage extends StatefulWidget {
 
 class _ListarNotasAlumnoPageState extends State<ListarNotasAlumnoPage> {
   AlumnoCtrl alCtrl = new AlumnoCtrl();
-  List<Widget> _notas;
   bool loading = true;
   final _formKey = GlobalKey<FormState>();
   Form formFinal;

@@ -144,7 +144,7 @@ class ApiRest {
         List<Alumno_Clase> tem =
             json.map((e) => new Alumno_Clase.fromJson(e)).toList();
         for (Alumno_Clase a in tem) {
-          await service.insertAlumno_Clase(a);
+          await service.insertAlumnoClase(a);
         }
         print("se inserto el alumnoclase");
       } on Exception catch (e) {
@@ -310,7 +310,7 @@ class ApiRest {
         List<Alumno_Clase> tem =
             json.map((e) => new Alumno_Clase.fromJson(e)).toList();
         for (Alumno_Clase a in tem) {
-          await service.insertAlumno_Clase(a);
+          await service.insertAlumnoClase(a);
         }
         print("se inserto el alumnoclase");
       } on Exception catch (e) {

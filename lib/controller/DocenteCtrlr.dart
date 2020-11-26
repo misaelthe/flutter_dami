@@ -1,13 +1,10 @@
 import 'package:flutter_dami/db/DBCibertec.dart';
 import 'package:flutter_dami/http/apiRest.dart';
-import 'package:flutter_dami/model/Alumno.dart';
-import 'package:flutter_dami/model/Clase.dart';
 import 'package:flutter_dami/model/Curso.dart';
 import 'package:flutter_dami/model/Docente.dart';
 import 'package:flutter_dami/model/Nota.dart';
 import 'package:flutter_dami/services/mainService.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
 import '../db/DBCibertec.dart';
 
 class DocenteCtrl {
