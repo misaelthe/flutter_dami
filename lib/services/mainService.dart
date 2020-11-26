@@ -116,6 +116,16 @@ class MainService {
     return null;
   }
 
+  Future<Alumno> getAlumnoBy(int idusuario) async {
+    dbCibertec = await con.database;
+    var res = await dbCibertec
+        .rawQuery("SELECT * FROM alumno a WHERE a.idusuario = ?", [idusuario]);
+    if (res.length > 0) {
+      return new Alumno.fromMap(res.first);
+    }
+    return null;
+  }
+
   Future<List<Clase>> getClasesByProfesor(int iddocente) async {
     dbCibertec = await con.database;
     print("entro al getclasesby porfesor q semustra en la interfaz");
@@ -126,16 +136,19 @@ class MainService {
     print("se sta obteniendo data frmom docente" + list.length.toString());
     return list;
   }
-Future<List<Clase>> getClasesByAlumno(int idalumno) async {
+
+  Future<List<Clase>> getClasesByAlumno(int idalumno) async {
     dbCibertec = await con.database;
 
-    List res = await dbCibertec
-        .rawQuery("SELECT * FROM clase c,alumno_clase ac WHERE c.idclase = ac.idclase and ac.idalumno = ?", [idalumno]);
+    List res = await dbCibertec.rawQuery(
+        "SELECT * FROM clase c,alumno_clase ac WHERE c.idclase = ac.idclase and ac.idalumno = ?",
+        [idalumno]);
     List<Clase> list =
         res.isNotEmpty ? res.map((c) => Clase.fromMap(c)).toList() : null;
     print("se sta obteniendo data frmom docente" + list.length.toString());
     return list;
   }
+
   Future<Seccion> getSeccionByClase(int idclase) async {
     dbCibertec = await con.database;
     print("entro al getclasesby porfesor q semustra en la interfaz");

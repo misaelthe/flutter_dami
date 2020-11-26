@@ -5,6 +5,7 @@ import 'package:flutter_dami/controller/DocenteCtrlr.dart';
 import 'package:flutter_dami/model/Clase.dart';
 import 'package:flutter_dami/model/Curso.dart';
 import 'package:flutter_dami/pages/listAlumno_page.dart';
+import 'package:flutter_dami/pages/listNotas_Alumno_Page.dart';
 
 class ListarCursosAlumnoPage extends StatefulWidget {
   @override
@@ -22,12 +23,12 @@ class _ListarCursosAlumnoPageState extends State<ListarCursosAlumnoPage> {
     super.initState();
   }
 
- setArrayCursos() async {
+  setArrayCursos() async {
     List<Widget> data = new List<Widget>();
-    int idalumno = await aluCtrl.getIdAlumno();
-    List<Clase> tem = await aluCtrl.getClasesByAlumno(idalumno);
+    int idalumno = await alCtrl.getIdAlumno();
+    List<Clase> tem = await alCtrl.getClasesByAlumno(idalumno);
     for (Clase c in tem) {
-      Curso curso = await aluCtrl.getCursoByClase(c.idclase);
+      Curso curso = await alCtrl.getCursoByClase(c.idclase);
       data.add(new ListTile(
         leading: Icon(
           Icons.architecture,
@@ -39,7 +40,7 @@ class _ListarCursosAlumnoPageState extends State<ListarCursosAlumnoPage> {
         ),
         title: Text(curso.nombre),
         subtitle: Text("Ciclo: " + curso.ciclo.toString()),
-        onTap: () => {goPageListAlumnos(context, c.idclase)},
+        onTap: () => {goPageVerNotas(context, c.idclase)},
       ));
     }
     setState(() {
@@ -59,12 +60,11 @@ class _ListarCursosAlumnoPageState extends State<ListarCursosAlumnoPage> {
         ));
   }
 
-    goPageListAlumnos(BuildContext context, int iddoc, int idcla) {
+  goPageVerNotas(BuildContext context, int idcla) {
     Navigator.push(
         context,
         MaterialPageRoute(
-            builder: (context) => ListAlumnoPage(
-                  iddocente: iddoc,
+            builder: (context) => ListarNotasAlumnoPage(
                   idclase: idcla,
                 )));
   }
