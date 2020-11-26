@@ -1,6 +1,6 @@
 class Seccion {
   int _idseccion;
-  int _codigo;
+  String _codigo;
   int _idcarrera;
   int _ciclo;
 
@@ -27,7 +27,7 @@ class Seccion {
         _ciclo = json['ciclo'];
 
   int get idseccion => _idseccion;
-  int get codigo => _codigo;
+  String get codigo => _codigo;
   int get idcarrera => _idcarrera;
   int get ciclo => _ciclo;
 }

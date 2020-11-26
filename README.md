@@ -1,4 +1,6 @@
-# 0.9.6
+# 0.9.7
+    Error al devolver alumno fixed
+    Error con el codigo int en seccion fixed
 # 0.9.5
     Virtualmente la ap en lo que respecta a alumno deberia funcionar
     Se mejora la interfaz de visualizar notas del alumno

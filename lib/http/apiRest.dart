@@ -61,7 +61,9 @@ class ApiRest {
     else if (u.credencial == 3) {
       print("entro con la credencial alumno");
       Alumno a = await getAlumnoByUsuario(u);
+      print("consiguio el usuario");
       await getSeccionesByAlumno(a);
+      print("al secciones el alumno");
       await getCursosDictadosByAlumno(a);
       await getClasesDictadasByAlumno(a);
       await getAlumnosClaseByAlumno(a);
@@ -228,8 +230,10 @@ class ApiRest {
       try {
         var json = await jsonDecode(response.body);
         Alumno a = Alumno.fromJson(json);
+        print("apunto de insertar");
         await service.insertAlumno(a);
-        return u;
+        print("se inserto el alumno");
+        return a;
       } on Exception catch (e) {
         print(e);
       }
@@ -245,7 +249,8 @@ class ApiRest {
     if (response.statusCode == 200) {
       try {
         List json = await jsonDecode(response.body);
-        print(" ersta entrando secicones");
+        print(json);
+        print(" ersta entrando secicones delalumno");
         List<Seccion> tem = json.map((e) => new Seccion.fromJson(e)).toList();
         for (Seccion s in tem) {
           await service.insertSeccion(s);
