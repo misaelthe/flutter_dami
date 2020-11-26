@@ -76,7 +76,16 @@ class MainService {
     return res;
   }
 
-  Future<int> insertNota(Nota nota) async {
+  Future<int> registrarNota(Nota nota) async {
+    dbCibertec = await con.database;
+    int res = await dbCibertec.insert(
+      "nota",
+      nota.toMap(),
+    );
+    return res;
+  }
+
+  Future<int> actualizarNota(Nota nota) async {
     dbCibertec = await con.database;
     int res = await dbCibertec.insert(
       "nota",
@@ -117,7 +126,16 @@ class MainService {
     print("se sta obteniendo data frmom docente" + list.length.toString());
     return list;
   }
+Future<List<Clase>> getClasesByAlumno(int idalumno) async {
+    dbCibertec = await con.database;
 
+    List res = await dbCibertec
+        .rawQuery("SELECT * FROM clase c,alumno_clase ac WHERE c.idclase = ac.idclase and ac.idalumno = ?", [idalumno]);
+    List<Clase> list =
+        res.isNotEmpty ? res.map((c) => Clase.fromMap(c)).toList() : null;
+    print("se sta obteniendo data frmom docente" + list.length.toString());
+    return list;
+  }
   Future<Seccion> getSeccionByClase(int idclase) async {
     dbCibertec = await con.database;
     print("entro al getclasesby porfesor q semustra en la interfaz");

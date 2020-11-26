@@ -181,7 +181,7 @@ class ApiRest {
         print(" ersta entrando getNotaByClaseByAlumno");
         List<Nota> tem = json.map((e) => new Nota.fromJson(e)).toList();
         for (Nota n in tem) {
-          await service.insertNota(n);
+          await service.registrarNota(n);
         }
         print(" insertado getNotaByClaseByAlumno");
       } on Exception catch (e) {

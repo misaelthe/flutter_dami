@@ -1,4 +1,5 @@
 import 'package:flutter_dami/db/DBCibertec.dart';
+import 'package:flutter_dami/http/apiRest.dart';
 import 'package:flutter_dami/model/Alumno.dart';
 import 'package:flutter_dami/model/Clase.dart';
 import 'package:flutter_dami/model/Curso.dart';
@@ -12,6 +13,7 @@ import '../db/DBCibertec.dart';
 class DocenteCtrl {
   DBCibertec con = new DBCibertec();
   MainService service = new MainService();
+  ApiRest rest = new ApiRest();
 
   Future<int> getIdDocente() async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
@@ -40,5 +42,10 @@ class DocenteCtrl {
   Future<Curso> getCursoByClase(int idclase) async {
     Curso tem = await service.getCursoByClase(idclase);
     return tem;
+  }
+
+  registrarNota(Nota nota) {
+    service.actualizarNota(nota);
+    rest.registrarNota(nota);
   }
 }
