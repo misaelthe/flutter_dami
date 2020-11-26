@@ -14,7 +14,6 @@ class ApiRest {
   MainService service = new MainService();
 
   Future<Usuario> getUsuario(String usuario, String password) async {
-    await service.deleteDB();
     Usuario u = await service.getUsuarioBy(usuario, password);
     if (u != null) {
       return u;
@@ -321,7 +320,7 @@ class ApiRest {
   }
 
 ///////////////////////////////REGISTRAR NOTA
-  registrarNota(Nota nota) async {
+  actualizarNota(Nota nota) async {
     var response = await http.post(
         'https://cibertec-schoolar.herokuapp.com/rest/registrarNota',
         body: nota.toJson(nota));

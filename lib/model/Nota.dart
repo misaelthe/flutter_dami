@@ -78,4 +78,10 @@ class Nota {
   int get e3 => _e3;
   int get ef => _ef;
   int get promedio => _promedio;
+
+  set e1(int e1) => _e1 = e1;
+  set e2(int e2) => _e2 = e2;
+  set ep(int ep) => _ep = ep;
+  set e3(int e3) => _e3 = e3;
+  set ef(int ef) => _ef = ef;
 }

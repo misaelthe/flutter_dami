@@ -1,3 +1,5 @@
+# 1.0
+    Registro de notas por lado del docente
 # 0.9.9
     Error de cursos listados dos veces fixed
 # 0.9.8

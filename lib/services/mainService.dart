@@ -87,9 +87,11 @@ class MainService {
 
   Future<int> actualizarNota(Nota nota) async {
     dbCibertec = await con.database;
-    int res = await dbCibertec.insert(
+    int res = await dbCibertec.update(
       "nota",
       nota.toMap(),
+      where: "idnota = ?",
+      whereArgs: [nota.idnota],
     );
     return res;
   }
@@ -177,6 +179,13 @@ class MainService {
     var res = await dbCibertec.rawQuery(
         "SELECT * FROM nota n WHERE n.idclase = ? and n.idalumno = ?",
         [idclase, idalumno]);
+    return new Nota.fromMap(res.first);
+  }
+
+  Future<Nota> getNotaBy(int idnota) async {
+    dbCibertec = await con.database;
+    var res = await dbCibertec
+        .rawQuery("SELECT * FROM nota n WHERE n.idnota = ?", [idnota]);
     return new Nota.fromMap(res.first);
   }
 
