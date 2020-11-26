@@ -1,3 +1,5 @@
+# 0.9.9
+    Error de cursos listados dos veces fixed
 # 0.9.8
     Listado de notas del alumno exitoso
     Error y carga dos veces los cursos del alumno

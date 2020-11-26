@@ -141,7 +141,7 @@ class MainService {
   Future<List<Clase>> getClasesByAlumno(int idalumno) async {
     dbCibertec = await con.database;
     List res = await dbCibertec.rawQuery(
-        "SELECT * FROM clase c,alumno_clase ac WHERE c.idclase = ac.idclase and ac.idalumno = ?",
+        "SELECT c.* FROM clase c,alumno_clase ac WHERE c.idclase = ac.idclase and ac.idalumno = ?",
         [idalumno]);
     List<Clase> list =
         res.isNotEmpty ? res.map((c) => Clase.fromMap(c)).toList() : null;
@@ -213,6 +213,18 @@ class MainService {
   getAllCurso() async {
     dbCibertec = await con.database;
     var res = await dbCibertec.query("curso");
+    print(res);
+  }
+
+  getAllClasesAlumno() async {
+    dbCibertec = await con.database;
+    var res = await dbCibertec.query("clase");
+    print(res);
+  }
+
+  getAllAlumnoClases() async {
+    dbCibertec = await con.database;
+    var res = await dbCibertec.query("alumno_clase");
     print(res);
   }
 
