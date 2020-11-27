@@ -46,13 +46,15 @@ class DocenteCtrl {
     return tem;
   }
 
-  registrarNota(int idnota, int e1, int e2, int ep, int e3, int ef) async {
+  registrarNota(
+      int idnota, int e1, int e2, int ep, int e3, int ef, int promedio) async {
     Nota n = await getNotaBy(idnota);
     n.e1 = e1;
     n.e2 = e2;
     n.ep = ep;
     n.e3 = e3;
     n.ef = ef;
+    n.promedio = promedio;
     service.actualizarNota(n);
     rest.actualizarNota(n);
   }

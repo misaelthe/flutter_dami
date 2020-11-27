@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_dami/controller/DocenteCtrlr.dart';
 import 'package:flutter_dami/model/Alumno.dart';
-import 'package:flutter_dami/pages/listNotas_Docente_Page.dart';
+import 'package:flutter_dami/pages/docente/listNotas_DocentePage.dart';
 
-class ListAlumnoPage extends StatefulWidget {
+class ListAlumnosDocentePage extends StatefulWidget {
   final int iddocente;
   final int idclase;
-  const ListAlumnoPage({Key key, this.iddocente, this.idclase})
+  const ListAlumnosDocentePage({Key key, this.iddocente, this.idclase})
       : super(key: key);
   @override
-  _ListAlumnoPageState createState() => _ListAlumnoPageState();
+  _ListAlumnosDocentePage createState() => _ListAlumnosDocentePage();
 }
 
-class _ListAlumnoPageState extends State<ListAlumnoPage> {
+class _ListAlumnosDocentePage extends State<ListAlumnosDocentePage> {
   DocenteCtrl docCtrl = new DocenteCtrl();
   List<Widget> _arListTile;
   bool loading = true;
@@ -62,7 +62,7 @@ class _ListAlumnoPageState extends State<ListAlumnoPage> {
     Navigator.push(
         context,
         MaterialPageRoute(
-            builder: (context) => ListarNotasDocentePage(
+            builder: (context) => ListNotasDocentePage(
                   idalumno: idal,
                   idclase: idcla,
                 )));

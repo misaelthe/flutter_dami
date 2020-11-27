@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_dami/controller/AlumnoCtrl.dart';
 import 'package:flutter_dami/model/Nota.dart';
 
-class ListarNotasAlumnoPage extends StatefulWidget {
+class ListNotasAlumnoPage extends StatefulWidget {
   final int idclase;
-  const ListarNotasAlumnoPage({Key key, this.idclase}) : super(key: key);
+  const ListNotasAlumnoPage({Key key, this.idclase}) : super(key: key);
   @override
-  _ListarNotasAlumnoPageState createState() => _ListarNotasAlumnoPageState();
+  _ListNotasAlumnoPage createState() => _ListNotasAlumnoPage();
 }
 
-class _ListarNotasAlumnoPageState extends State<ListarNotasAlumnoPage> {
+class _ListNotasAlumnoPage extends State<ListNotasAlumnoPage> {
   AlumnoCtrl alCtrl = new AlumnoCtrl();
   bool loading = true;
   final _formKey = GlobalKey<FormState>();

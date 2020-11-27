@@ -47,38 +47,19 @@ class Nota {
         _ef = json['ef'],
         _promedio = json['promedio'];
 
-  Map<String, dynamic> toJson() => {
-        "'idnota'": _idnota,
-        "'idclase'": _idclase,
-        "'idalumno'": _idalumno,
-        "'e1'": _e1,
-        "'e2'": _e2,
-        "'ep'": _ep,
-        "'e3'": _e3,
-        "'ef'": _ef
-      };
-  /*String toJson(Nota nota) {
-    String cadena = "{'idnota':" +
-        nota._idnota.toString() +
-        ",'idclase':" +
-        nota._idclase.toString() +
-        ",'idalumno':" +
-        nota._idalumno.toString() +
-        ",'e1':" +
-        nota._e1.toString() +
-        ",'e2':" +
-        nota._e2.toString() +
-        ",'ep':" +
-        nota._ep.toString() +
-        ",'e3':" +
-        nota._e3.toString() +
-        ",'ef':" +
-        nota._ef.toString() +
-        ",'promedio':" +
-        nota._promedio.toString() +
-        "}";
-    return cadena;
-  }*/
+  Map<String, dynamic> toJson() {
+    return {
+      "idnota": _idnota,
+      "idclase": _idclase,
+      "idalumno": _idalumno,
+      "e1": _e1,
+      "e2": _e2,
+      "ep": _ep,
+      "e3": _e3,
+      "ef": _ef,
+      "promedio": _promedio
+    };
+  }
 
   int get idnota => _idnota;
   int get idclase => idclase;
@@ -95,4 +76,5 @@ class Nota {
   set ep(int ep) => _ep = ep;
   set e3(int e3) => _e3 = e3;
   set ef(int ef) => _ef = ef;
+  set promedio(int promedio) => _promedio = promedio;
 }

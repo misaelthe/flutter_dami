@@ -3,21 +3,23 @@ import 'package:flutter/services.dart';
 import 'package:flutter_dami/controller/DocenteCtrlr.dart';
 import 'package:flutter_dami/model/Nota.dart';
 
-class ListarNotasDocentePage extends StatefulWidget {
+class ListNotasDocentePage extends StatefulWidget {
   final int idalumno;
   final int idclase;
-  const ListarNotasDocentePage({Key key, this.idalumno, this.idclase})
+  const ListNotasDocentePage({Key key, this.idalumno, this.idclase})
       : super(key: key);
   @override
-  _ListarNotasDocentePageState createState() => _ListarNotasDocentePageState();
+  _ListNotasDocentePage createState() => _ListNotasDocentePage();
 }
 
-class _ListarNotasDocentePageState extends State<ListarNotasDocentePage> {
+class _ListNotasDocentePage extends State<ListNotasDocentePage> {
   DocenteCtrl docCtrl = new DocenteCtrl();
   bool loading = true;
   int _idnota, _e1, _e2, _e3, _ep, _ef;
   var formNotas;
   final _formKey = GlobalKey<FormState>();
+  var txtPromedio = TextEditingController();
+
   @override
   void initState() {
     setNotas();
@@ -27,11 +29,6 @@ class _ListarNotasDocentePageState extends State<ListarNotasDocentePage> {
   setNotas() async {
     Nota n =
         await docCtrl.getNotaByClaseByAlumno(widget.idclase, widget.idalumno);
-    print("la nota es esta al set: " +
-        n.idnota.toString() +
-        " y " +
-        n.e1.toString() +
-        n.e2.toString());
     formNotas = new Form(
       key: _formKey,
       child: Column(
@@ -127,10 +124,14 @@ class _ListarNotasDocentePageState extends State<ListarNotasDocentePage> {
             onSaved: (val) => _ef = int.parse(val),
           ),
           Text("Promedio"),
-          TextFormField(
+          TextField(
             readOnly: true,
             enabled: false,
-            initialValue: n.promedio.toString(),
+            decoration: InputDecoration(
+              border: OutlineInputBorder(),
+              labelText: n.promedio.toString(),
+            ),
+            controller: txtPromedio,
           ),
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 16.0),
@@ -173,13 +174,24 @@ class _ListarNotasDocentePageState extends State<ListarNotasDocentePage> {
       appBar: AppBar(
         title: Text("Notas Obtenidas"),
       ),
-      body: formNotas,
+      body: loading
+          ? ListView()
+          : SingleChildScrollView(
+              child: Stack(
+                children: [formNotas],
+              ),
+            ),
     );
   }
 
   actualizarNota() {
     final form = _formKey.currentState;
     form.save();
-    docCtrl.registrarNota(_idnota, _e1, _e2, _ep, _e3, _ef);
+    double nTeo = ((_e1 + _e2 + _e3) / 3) * 45 / 100;
+    double nPar = _ep * 25 / 100;
+    double nFin = _ef * 30 / 100;
+    int _promedio = (nTeo + nPar + nFin).round();
+    docCtrl.registrarNota(_idnota, _e1, _e2, _ep, _e3, _ef, _promedio);
+    txtPromedio.text = _promedio.toString();
   }
 }

@@ -3,14 +3,14 @@ import 'package:flutter_dami/controller/DocenteCtrlr.dart';
 import 'package:flutter_dami/model/Clase.dart';
 import 'package:flutter_dami/model/Curso.dart';
 import 'package:flutter_dami/model/Seccion.dart';
-import 'package:flutter_dami/pages/listAlumno_page.dart';
+import 'package:flutter_dami/pages/docente/listAlumnos_DocentePage.dart';
 
-class CoursesDocentePage extends StatefulWidget {
+class ListClasesDocentePage extends StatefulWidget {
   @override
-  _CoursesDocentePageState createState() => _CoursesDocentePageState();
+  _ListClasesDocentePage createState() => _ListClasesDocentePage();
 }
 
-class _CoursesDocentePageState extends State<CoursesDocentePage> {
+class _ListClasesDocentePage extends State<ListClasesDocentePage> {
   DocenteCtrl docCtrl = new DocenteCtrl();
   List<Widget> _arListTile;
   bool loading = true;
@@ -66,7 +66,7 @@ class _CoursesDocentePageState extends State<CoursesDocentePage> {
     Navigator.push(
         context,
         MaterialPageRoute(
-            builder: (context) => ListAlumnoPage(
+            builder: (context) => ListAlumnosDocentePage(
                   iddocente: iddoc,
                   idclase: idcla,
                 )));

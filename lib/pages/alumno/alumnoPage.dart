@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_dami/controller/LoginCtrlr.dart';
 import 'package:flutter_dami/widgets/header_cibertec.dart';
 
-class DocenteHomePage extends StatelessWidget {
+class AlumnoHomePage extends StatelessWidget {
   final LoginCtrl loginCtrl = new LoginCtrl();
-
   @override
   Widget build(BuildContext context) {
     Widget titleSection = Container(
-        padding: const EdgeInsets.only(top: 50, bottom: 20),
-        child: HeaderCibertecWidget());
+      padding: const EdgeInsets.only(top: 50, bottom: 20),
+      child: HeaderCibertecWidget(),
+    );
 
     Widget titleSections = Container(
       padding: const EdgeInsets.all(32),
@@ -17,11 +17,8 @@ class DocenteHomePage extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
           Expanded(
-            /*1*/
             child: Column(
               children: [
-                /*2*/
-
                 Text(
                   'Seleccione una herramienta de su preferencia',
                   style: TextStyle(
@@ -33,11 +30,10 @@ class DocenteHomePage extends StatelessWidget {
               ],
             ),
           ),
-          /*3*/
         ],
       ),
     );
-
+//
     Widget buttonSection = Container(
         padding: EdgeInsets.all(32),
         child: Column(children: <Widget>[
@@ -47,10 +43,10 @@ class DocenteHomePage extends StatelessWidget {
               Expanded(
                 child: Column(
                   children: <Widget>[
-                    Image(
-                      image: AssetImage("assets/escritura.png"),
-                      width: 120,
-                      height: 20,
+                    Image.asset(
+                      'assets/escritura.png',
+                      height: 70.0,
+                      width: 70.0,
                     ),
                     Container(
                       padding: EdgeInsets.only(top: 10),
@@ -62,10 +58,10 @@ class DocenteHomePage extends StatelessWidget {
               Expanded(
                 child: Column(
                   children: <Widget>[
-                    Image(
-                      image: AssetImage("assets/mensaje-recibido.png"),
-                      width: 120,
-                      height: 20,
+                    Image.asset(
+                      'assets/mensaje-recibido.png',
+                      height: 70.0,
+                      width: 70.0,
                     ),
                     Container(
                       padding: EdgeInsets.only(top: 10),
@@ -141,33 +137,21 @@ class DocenteHomePage extends StatelessWidget {
                 DrawerHeader(
                   decoration: BoxDecoration(color: Colors.blue),
                   child: Text(
-                    'Bienvenido',
+                    'Drawer Header',
                     style: TextStyle(color: Colors.white, fontSize: 24),
                   ),
                 ),
                 ListTile(
                   leading: Icon(Icons.message),
-                  title: Text('Registrar Nota'),
-                  onTap: () => {goPageListClasesByDocente(context)},
-                ),
-                ListTile(
-                  leading: Icon(Icons.account_circle),
                   title: Text('Perfil'),
                 ),
                 ListTile(
-                  leading: Icon(Icons.settings),
-                  title: Text('Ver Horario'),
+                  leading: Icon(Icons.account_circle),
+                  title: Text('Ver Notas'),
+                  onTap: () => {goPageListClasesByAlumno(context)},
                 ),
                 ListTile(
-                  leading: Icon(Icons.settings),
-                  title: Text('Pago'),
-                ),
-                ListTile(
-                  leading: Icon(Icons.settings),
-                  title: Text('Mensajeria'),
-                ),
-                ListTile(
-                  leading: Icon(Icons.message),
+                  leading: Icon(Icons.account_circle),
                   title: Text('Sign Out'),
                   onTap: () {
                     showDialog(
@@ -194,6 +178,10 @@ class DocenteHomePage extends StatelessWidget {
                           );
                         });
                   },
+                ),
+                ListTile(
+                  leading: Icon(Icons.settings),
+                  title: Text('Settings'),
                 ),
               ]),
             ),
@@ -227,7 +215,7 @@ class DocenteHomePage extends StatelessWidget {
             )));
   }
 
-  Column _buildButtonColumn(Color color, IconData icon, String label) {
+  /*Column _buildButtonColumn(Color color, IconData icon, String label) {
     return Column(
       mainAxisSize: MainAxisSize.min,
       mainAxisAlignment: MainAxisAlignment.center,
@@ -245,17 +233,13 @@ class DocenteHomePage extends StatelessWidget {
         ),
       ],
     );
-  }
+  }*/
 
-  signOut(BuildContext context) {
+  signOut(BuildContext context) async {
     loginCtrl.signOut(context);
   }
 
-  iraPageAlumno(BuildContext context) async {
-    Navigator.of(context).pushNamed("/homePageAlumno");
-  }
-
-  goPageListClasesByDocente(BuildContext context) async {
-    Navigator.of(context).pushNamed("/pageCoursesDocente");
+  goPageListClasesByAlumno(BuildContext context) async {
+    Navigator.of(context).pushNamed("/pageClasesAlumno");
   }
 }

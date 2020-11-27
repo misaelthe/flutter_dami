@@ -1,5 +1,6 @@
+# 1.0.5
+    Insertando correctamente con el metodo POST la nota del docente
 # 1.0.1
-# 1.0
     Registro de notas por lado del docente
 # 0.9.9
     Error de cursos listados dos veces fixed

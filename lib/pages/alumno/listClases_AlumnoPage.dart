@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_dami/controller/AlumnoCtrl.dart';
 import 'package:flutter_dami/model/Clase.dart';
 import 'package:flutter_dami/model/Curso.dart';
-import 'package:flutter_dami/pages/listNotas_Alumno_Page.dart';
+import 'package:flutter_dami/pages/alumno/listNotas_AlumnoPage.dart';
 
-class ListarCursosAlumnoPage extends StatefulWidget {
+class ListClasesAlumnoPage extends StatefulWidget {
   @override
-  _ListarCursosAlumnoPageState createState() => _ListarCursosAlumnoPageState();
+  _ListClasesAlumnoPage createState() => _ListClasesAlumnoPage();
 }
 
-class _ListarCursosAlumnoPageState extends State<ListarCursosAlumnoPage> {
+class _ListClasesAlumnoPage extends State<ListClasesAlumnoPage> {
   AlumnoCtrl alCtrl = new AlumnoCtrl();
   List<Widget> _arListTile;
   bool loading = true;
@@ -63,7 +63,7 @@ class _ListarCursosAlumnoPageState extends State<ListarCursosAlumnoPage> {
     Navigator.push(
         context,
         MaterialPageRoute(
-            builder: (context) => ListarNotasAlumnoPage(
+            builder: (context) => ListNotasAlumnoPage(
                   idclase: idcla,
                 )));
   }

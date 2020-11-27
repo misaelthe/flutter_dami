@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter_dami/pages/cursosDocente_page.dart';
-import 'package:flutter_dami/pages/alumno_page.dart';
-import 'package:flutter_dami/pages/docente_page.dart';
-import 'package:flutter_dami/pages/listCursos_Alumno_page.dart';
+import 'package:flutter_dami/pages/docente/listClases_DocentePage.dart';
+import 'package:flutter_dami/pages/alumno/alumnoPage.dart';
+import 'package:flutter_dami/pages/docente/docentePage.dart';
+import 'package:flutter_dami/pages/alumno/listClases_AlumnoPage.dart';
 import 'package:flutter_dami/pages/login_page.dart';
 import 'package:flutter/material.dart';
 
@@ -11,9 +11,9 @@ void main() => runApp(MyApp());
 final routes = {
   '/login': (BuildContext context) => new LoginPage(),
   '/homePageDocente': (BuildContext context) => new DocenteHomePage(),
-  '/pageCoursesDocente': (BuildContext context) => new CoursesDocentePage(),
+  '/pageClasesDocente': (BuildContext context) => new ListClasesDocentePage(),
   '/homePageAlumno': (BuildContext context) => new AlumnoHomePage(),
-  '/pageCoursesAlumno': (BuildContext context) => new ListarCursosAlumnoPage(),
+  '/pageClasesAlumno': (BuildContext context) => new ListClasesAlumnoPage(),
 };
 
 class MyApp extends StatelessWidget {

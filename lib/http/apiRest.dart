@@ -12,7 +12,9 @@ import 'package:flutter_dami/model/Usuario.dart';
 
 class ApiRest {
   MainService service = new MainService();
-
+  static const headers = {
+    'Content-Type': 'application/json',
+  };
   Future<Usuario> getUsuario(String usuario, String password) async {
     Usuario u = await service.getUsuarioBy(usuario, password);
     if (u != null) {
@@ -320,21 +322,14 @@ class ApiRest {
   }
 
 ///////////////////////////////REGISTRAR NOTA
-  actualizarNota(Nota nota) async {
-    print(nota.toJson());
-    Map<String, String> headers = {
-      'Content-Type': 'application/json; charset=UTF-8',
-    };
-    String msg = jsonEncode(nota.toJson());
 
+  actualizarNota(Nota nota) async {
     var response = await http.post(
         'https://cibertec-schoolar.herokuapp.com/rest/registrarNota',
         headers: headers,
-        body: msg);
-    print("${response.statusCode}");
-    print("${response.body}");
-    if (response.statusCode == 201) {
-      print("Se inserto el json corer enviado correctamente");
+        body: jsonEncode(nota.toJson()));
+    if (response.statusCode == 200) {
+      print("Se inserto la nota correctamente");
     } else {
       print("No se obtuvo respuesta del json enviado alumno");
     }
