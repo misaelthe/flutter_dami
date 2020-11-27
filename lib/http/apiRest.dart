@@ -321,13 +321,22 @@ class ApiRest {
 
 ///////////////////////////////REGISTRAR NOTA
   actualizarNota(Nota nota) async {
+    print(nota.toJson());
+    Map<String, String> headers = {
+      'Content-Type': 'application/json; charset=UTF-8',
+    };
+    String msg = jsonEncode(nota.toJson());
+
     var response = await http.post(
         'https://cibertec-schoolar.herokuapp.com/rest/registrarNota',
-        body: nota.toJson(nota));
+        headers: headers,
+        body: msg);
+    print("${response.statusCode}");
+    print("${response.body}");
     if (response.statusCode == 201) {
-      print("Se inserto correctamente");
+      print("Se inserto el json corer enviado correctamente");
     } else {
-      print("No se obtuvo respuesta del alumno");
+      print("No se obtuvo respuesta del json enviado alumno");
     }
   }
 }

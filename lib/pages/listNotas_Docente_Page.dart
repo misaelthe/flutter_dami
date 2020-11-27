@@ -14,9 +14,7 @@ class ListarNotasDocentePage extends StatefulWidget {
 
 class _ListarNotasDocentePageState extends State<ListarNotasDocentePage> {
   DocenteCtrl docCtrl = new DocenteCtrl();
-  List<Widget> _arListTile;
   bool loading = true;
-  final _formRegistrarNota = GlobalKey<FormState>();
   int _idnota, _e1, _e2, _e3, _ep, _ef;
   var formNotas;
   final _formKey = GlobalKey<FormState>();
@@ -29,7 +27,11 @@ class _ListarNotasDocentePageState extends State<ListarNotasDocentePage> {
   setNotas() async {
     Nota n =
         await docCtrl.getNotaByClaseByAlumno(widget.idclase, widget.idalumno);
-
+    print("la nota es esta al set: " +
+        n.idnota.toString() +
+        " y " +
+        n.e1.toString() +
+        n.e2.toString());
     formNotas = new Form(
       key: _formKey,
       child: Column(
@@ -135,10 +137,25 @@ class _ListarNotasDocentePageState extends State<ListarNotasDocentePage> {
             child: ElevatedButton(
               onPressed: () {
                 if (_formKey.currentState.validate()) {
-                  docCtrl.registrarNota(_idnota, _e1, _e2, _ep, _e3, _ef);
+                  print("la nota es esta: " + _idnota.toString());
+                  actualizarNota();
+                  showDialog(
+                      context: context,
+                      builder: (_) => new AlertDialog(
+                            title: new Text("Nota Registrada"),
+                            content: new Text("Felicidades Teacher"),
+                            actions: <Widget>[
+                              FlatButton(
+                                child: Text('OK'),
+                                onPressed: () {
+                                  Navigator.of(context).pop();
+                                },
+                              )
+                            ],
+                          ));
                 }
               },
-              child: Text('Registrar Nonta'),
+              child: Text('Registrar Nota'),
             ),
           ),
         ],
@@ -158,5 +175,11 @@ class _ListarNotasDocentePageState extends State<ListarNotasDocentePage> {
       ),
       body: formNotas,
     );
+  }
+
+  actualizarNota() {
+    final form = _formKey.currentState;
+    form.save();
+    docCtrl.registrarNota(_idnota, _e1, _e2, _ep, _e3, _ef);
   }
 }
