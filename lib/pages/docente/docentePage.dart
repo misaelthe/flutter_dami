@@ -4,7 +4,11 @@ import 'package:flutter_dami/widgets/header_cibertec.dart';
 
 class DocenteHomePage extends StatelessWidget {
   final LoginCtrl loginCtrl = new LoginCtrl();
-
+  final styleOpciones = TextStyle(
+    fontFamily: 'RobotoMono',
+    fontSize: 15,
+    fontWeight: FontWeight.bold,
+  );
   @override
   Widget build(BuildContext context) {
     Widget titleSection = Container(
@@ -137,34 +141,67 @@ class DocenteHomePage extends StatelessWidget {
                 DrawerHeader(
                   decoration: BoxDecoration(color: Colors.blue),
                   child: Text(
-                    'Bienvenido',
+                    'Bienvenido Docente',
                     style: TextStyle(color: Colors.white, fontSize: 24),
                   ),
                 ),
                 ListTile(
-                  leading: Icon(Icons.message),
-                  title: Text('Registrar Nota'),
+                  leading: Icon(
+                    Icons.account_circle,
+                    size: 40,
+                  ),
+                  title: Text(
+                    'Mi Perfil',
+                    style: styleOpciones,
+                  ),
+                ),
+                ListTile(
+                  leading: Icon(Icons.create_sharp),
+                  title: Text(
+                    'Registrar Nota',
+                    style: styleOpciones,
+                  ),
                   onTap: () => {goPageListClasesByDocente(context)},
                 ),
                 ListTile(
-                  leading: Icon(Icons.account_circle),
-                  title: Text('Perfil'),
+                  leading: Icon(
+                    Icons.alarm_sharp,
+                    size: 40,
+                  ),
+                  title: Text(
+                    'Ver Horario',
+                    style: styleOpciones,
+                  ),
                 ),
                 ListTile(
-                  leading: Icon(Icons.settings),
-                  title: Text('Ver Horario'),
+                  leading: Icon(
+                    Icons.message,
+                    size: 40,
+                  ),
+                  title: Text(
+                    'Mensajeria',
+                    style: styleOpciones,
+                  ),
                 ),
                 ListTile(
-                  leading: Icon(Icons.settings),
-                  title: Text('Pago'),
+                  leading: Icon(
+                    Icons.settings,
+                    size: 40,
+                  ),
+                  title: Text(
+                    'Configuracion',
+                    style: styleOpciones,
+                  ),
                 ),
                 ListTile(
-                  leading: Icon(Icons.settings),
-                  title: Text('Mensajeria'),
-                ),
-                ListTile(
-                  leading: Icon(Icons.message),
-                  title: Text('Sign Out'),
+                  leading: Icon(
+                    Icons.logout,
+                    size: 40,
+                  ),
+                  title: Text(
+                    'Sign Out',
+                    style: styleOpciones,
+                  ),
                   onTap: () {
                     showDialog(
                         context: context,

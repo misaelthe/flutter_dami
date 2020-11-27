@@ -29,7 +29,7 @@ class _ListAlumnosDocentePage extends State<ListAlumnosDocentePage> {
     for (Alumno a in tem) {
       data.add(new ListTile(
         leading: Icon(
-          Icons.architecture,
+          Icons.account_circle,
           size: 50,
         ),
         trailing: Icon(
@@ -37,7 +37,7 @@ class _ListAlumnosDocentePage extends State<ListAlumnosDocentePage> {
           size: 30,
         ),
         title: Text(a.nombre),
-        subtitle: Text("Correo: " + a.correo),
+        subtitle: Text("Cod. de Alumno: " + a.idalumno.toString()),
         onTap: () => {goPageListNotas(context, a.idalumno, widget.idclase)},
       ));
     }

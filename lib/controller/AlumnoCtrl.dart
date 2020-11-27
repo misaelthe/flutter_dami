@@ -23,6 +23,10 @@ class AlumnoCtrl {
     return await service.getCursoByClase(idclase);
   }
 
+  getSeccionByClase(int idclase) async {
+    return await service.getSeccionByClase(idclase);
+  }
+
   Future<Nota> getNotaByClase(int idclase) async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     int idusuario = preferences.getInt("idusuario");

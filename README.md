@@ -1,3 +1,6 @@
+# 1.0.7
+    Mejorando iconos de la interfaz
+    Reorganizando las pages
 # 1.0.5
     Insertando correctamente con el metodo POST la nota del docente
 # 1.0.1

@@ -40,7 +40,7 @@ class _ListClasesDocentePage extends State<ListClasesDocentePage> {
         title: Text(curso.nombre),
         subtitle: Text("Seccion: " +
             seccion.codigo.toString() +
-            "Ciclo: " +
+            " Ciclo: " +
             curso.ciclo.toString()),
         onTap: () => {goPageListAlumnos(context, iddocente, c.idclase)},
       ));

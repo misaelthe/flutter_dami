@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_dami/controller/AlumnoCtrl.dart';
 import 'package:flutter_dami/model/Clase.dart';
 import 'package:flutter_dami/model/Curso.dart';
+import 'package:flutter_dami/model/Seccion.dart';
 import 'package:flutter_dami/pages/alumno/listNotas_AlumnoPage.dart';
 
 class ListClasesAlumnoPage extends StatefulWidget {
@@ -23,11 +24,10 @@ class _ListClasesAlumnoPage extends State<ListClasesAlumnoPage> {
   setArrayCursos() async {
     List<Widget> data = new List<Widget>();
     int idalumno = await alCtrl.getIdAlumno();
-    print(idalumno.toString() + "  ese se su id del alumn");
     List<Clase> tem = await alCtrl.getClasesByAlumno(idalumno);
-    print(tem.length.toString() + "  ese es la lonmg dela rray alumn");
     for (Clase c in tem) {
       Curso curso = await alCtrl.getCursoByClase(c.idclase);
+      Seccion seccion = await alCtrl.getSeccionByClase(c.idclase);
       data.add(new ListTile(
         leading: Icon(
           Icons.architecture,
@@ -38,7 +38,7 @@ class _ListClasesAlumnoPage extends State<ListClasesAlumnoPage> {
           size: 30,
         ),
         title: Text(curso.nombre),
-        subtitle: Text("Ciclo: " + curso.ciclo.toString()),
+        subtitle: Text("Seccion: " + seccion.codigo.toString()),
         onTap: () => {goPageVerNotas(context, c.idclase)},
       ));
     }
@@ -52,7 +52,7 @@ class _ListClasesAlumnoPage extends State<ListClasesAlumnoPage> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text("Cursos Actuales"),
+          title: Text("Clases Actuales"),
         ),
         body: ListView(
           children: loading ? [] : _arListTile,

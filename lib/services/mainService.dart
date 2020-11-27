@@ -213,29 +213,11 @@ class MainService {
     return list;
   }
 
-  getAllClase() async {
-    dbCibertec = await con.database;
-    var res = await dbCibertec.query("clase");
-    print(res);
-  }
-
-  getAllCurso() async {
-    dbCibertec = await con.database;
-    var res = await dbCibertec.query("curso");
-    print(res);
-  }
-
-  getAllClasesAlumno() async {
-    dbCibertec = await con.database;
-    var res = await dbCibertec.query("clase");
-    print(res);
-  }
-
-  getAllAlumnoClases() async {
+  /*getAllAlumnoClases() async {
     dbCibertec = await con.database;
     var res = await dbCibertec.query("alumno_clase");
     print(res);
-  }
+  }*/
 
   deleteDB() async {
     dbCibertec = await con.database;

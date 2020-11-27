@@ -4,6 +4,11 @@ import 'package:flutter_dami/widgets/header_cibertec.dart';
 
 class AlumnoHomePage extends StatelessWidget {
   final LoginCtrl loginCtrl = new LoginCtrl();
+  final styleOpciones = TextStyle(
+    fontFamily: 'RobotoMono',
+    fontSize: 15,
+    fontWeight: FontWeight.bold,
+  );
   @override
   Widget build(BuildContext context) {
     Widget titleSection = Container(
@@ -137,22 +142,60 @@ class AlumnoHomePage extends StatelessWidget {
                 DrawerHeader(
                   decoration: BoxDecoration(color: Colors.blue),
                   child: Text(
-                    'Drawer Header',
+                    'Bienvenido Alumno',
                     style: TextStyle(color: Colors.white, fontSize: 24),
                   ),
                 ),
                 ListTile(
-                  leading: Icon(Icons.message),
-                  title: Text('Perfil'),
+                  leading: Icon(
+                    Icons.account_circle,
+                    size: 40,
+                  ),
+                  title: Text(
+                    'Mi Perfil',
+                    style: styleOpciones,
+                  ),
                 ),
                 ListTile(
-                  leading: Icon(Icons.account_circle),
-                  title: Text('Ver Notas'),
+                  leading: Icon(
+                    Icons.import_contacts,
+                    size: 40,
+                  ),
+                  title: Text(
+                    'Ver Notas',
+                    style: styleOpciones,
+                  ),
                   onTap: () => {goPageListClasesByAlumno(context)},
                 ),
                 ListTile(
-                  leading: Icon(Icons.account_circle),
-                  title: Text('Sign Out'),
+                  leading: Icon(
+                    Icons.alarm_sharp,
+                    size: 40,
+                  ),
+                  title: Text(
+                    'Horario',
+                    style: styleOpciones,
+                  ),
+                ),
+                ListTile(
+                  leading: Icon(
+                    Icons.settings,
+                    size: 40,
+                  ),
+                  title: Text(
+                    'Configuracion',
+                    style: styleOpciones,
+                  ),
+                ),
+                ListTile(
+                  leading: Icon(
+                    Icons.logout,
+                    size: 40,
+                  ),
+                  title: Text(
+                    'Sign Out',
+                    style: styleOpciones,
+                  ),
                   onTap: () {
                     showDialog(
                         context: context,
@@ -178,10 +221,6 @@ class AlumnoHomePage extends StatelessWidget {
                           );
                         });
                   },
-                ),
-                ListTile(
-                  leading: Icon(Icons.settings),
-                  title: Text('Settings'),
                 ),
               ]),
             ),
