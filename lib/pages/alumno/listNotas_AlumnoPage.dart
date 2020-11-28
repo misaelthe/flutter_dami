@@ -14,6 +14,16 @@ class _ListNotasAlumnoPage extends State<ListNotasAlumnoPage> {
   bool loading = true;
   final _formKey = GlobalKey<FormState>();
   var formFinal;
+  var tableNota;
+  final styleHeader = TextStyle(
+    fontFamily: 'RobotoMono',
+    fontSize: 25,
+    fontWeight: FontWeight.bold,
+  );
+  final styleBody = TextStyle(
+    fontFamily: 'RobotoMono',
+    fontSize: 18,
+  );
   @override
   void initState() {
     setNotas();
@@ -22,17 +32,99 @@ class _ListNotasAlumnoPage extends State<ListNotasAlumnoPage> {
 
   setNotas() async {
     Nota n = await alCtrl.getNotaByClase(widget.idclase);
-    formFinal = new Form(
-        key: _formKey,
-        child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              Text("Evaluacion Teorica 1: " + n.e1.toString()),
-              Text("Evaluacion Teorica 2: " + n.e2.toString()),
-              Text("Evaluacion Parcial: " + n.ep.toString()),
-              Text("Evaluacion Teorica 3: " + n.e3.toString()),
-              Text("Evaluacion Final: " + n.ef.toString()),
-            ]));
+    tableNota = new Table(
+      columnWidths: {1: FlexColumnWidth(.3)},
+      defaultVerticalAlignment: TableCellVerticalAlignment.middle,
+      children: [
+        TableRow(children: [
+          Text(
+            "Nombre de la Evaluacion",
+            style: styleHeader,
+            textAlign: TextAlign.center,
+          ),
+          Text(
+            "Nota",
+            style: styleHeader,
+            textAlign: TextAlign.center,
+          ),
+        ]),
+        TableRow(
+          children: [
+            Text(
+              "Evaluacion Teorica 1",
+              style: styleBody,
+              textAlign: TextAlign.center,
+            ),
+            Text(
+              n.e1.toString(),
+              style: styleBody,
+              textAlign: TextAlign.center,
+            ),
+          ],
+          decoration: BoxDecoration(color: Colors.grey[200]),
+        ),
+        TableRow(children: [
+          Text(
+            "Evaluacion Teorica 2",
+            style: styleBody,
+            textAlign: TextAlign.center,
+          ),
+          Text(
+            n.e2.toString(),
+            style: styleBody,
+            textAlign: TextAlign.center,
+          ),
+        ]),
+        TableRow(
+          children: [
+            Text(
+              "Evaluacion Parcial",
+              style: styleBody,
+              textAlign: TextAlign.center,
+            ),
+            Text(
+              n.ep.toString(),
+              style: styleBody,
+              textAlign: TextAlign.center,
+            ),
+          ],
+          decoration: BoxDecoration(color: Colors.grey[200]),
+        ),
+        TableRow(children: [
+          Text(
+            "Evaluacion Teorica 3",
+            style: styleBody,
+            textAlign: TextAlign.center,
+          ),
+          Text(
+            n.e3.toString(),
+            style: styleBody,
+            textAlign: TextAlign.center,
+          ),
+        ]),
+        TableRow(
+          children: [
+            Text(
+              "Evaluacion Final",
+              style: styleBody,
+              textAlign: TextAlign.center,
+            ),
+            Text(
+              n.ef.toString(),
+              style: styleBody,
+              textAlign: TextAlign.center,
+            ),
+          ],
+          decoration: BoxDecoration(color: Colors.grey[200]),
+        ),
+      ],
+      border: TableBorder(
+          horizontalInside: BorderSide(
+              width: 2, color: Colors.blue, style: BorderStyle.solid),
+          verticalInside: BorderSide(
+              width: 1, color: Colors.blue, style: BorderStyle.solid)),
+    );
+
     setState(() {
       loading = false;
     });
@@ -44,7 +136,10 @@ class _ListNotasAlumnoPage extends State<ListNotasAlumnoPage> {
       appBar: AppBar(
         title: Text("Notas Obtenidas"),
       ),
-      body: formFinal,
+      body: Container(
+        padding: EdgeInsets.only(bottom: 20.0),
+        child: tableNota,
+      ),
     );
   }
 }
