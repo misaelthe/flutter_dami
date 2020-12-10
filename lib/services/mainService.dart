@@ -129,7 +129,7 @@ class MainService {
     return null;
   }
 
-  Future<List<Clase>> getClasesByProfesor(int iddocente) async {
+  Future<List<Clase>> getClasesByDocente(int iddocente) async {
     dbCibertec = await con.database;
     print("entro al getclasesby porfesor q semustra en la interfaz");
     List res = await dbCibertec
@@ -189,10 +189,10 @@ class MainService {
     return new Nota.fromMap(res.first);
   }
 
-  Future<Curso> getCursoByClase(int idclase) async {
+  Future<Curso> getCursoBy(int idcurso) async {
     dbCibertec = await con.database;
     var res = await dbCibertec
-        .rawQuery("SELECT * FROM curso c WHERE c.idcurso = ?", [idclase]);
+        .rawQuery("SELECT * FROM curso c WHERE c.idcurso = ?", [idcurso]);
     return new Curso.fromMap(res.first);
   }
 
@@ -213,11 +213,11 @@ class MainService {
     return list;
   }
 
-  /*getAllAlumnoClases() async {
+  getAllClases() async {
     dbCibertec = await con.database;
-    var res = await dbCibertec.query("alumno_clase");
+    var res = await dbCibertec.query("clase");
     print(res);
-  }*/
+  }
 
   deleteDB() async {
     dbCibertec = await con.database;

@@ -19,8 +19,8 @@ class AlumnoCtrl {
     return await service.getClasesByAlumno(idalumno);
   }
 
-  getCursoByClase(int idclase) async {
-    return await service.getCursoByClase(idclase);
+  getCursoBy(int idcurso) async {
+    return await service.getCursoBy(idcurso);
   }
 
   getSeccionByClase(int idclase) async {

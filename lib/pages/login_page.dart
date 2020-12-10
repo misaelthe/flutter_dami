@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_dami/controller/LoginCtrlr.dart';
 import 'package:flutter_dami/model/Usuario.dart';
+import 'package:flutter_dami/services/mainService.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginPage extends StatefulWidget {
@@ -126,6 +127,9 @@ class _LoginPageState extends State<LoginPage> {
                   ],
                 ));
       else {
+        MainService m = new MainService();
+        m.getAllClases();
+        print("--------------------------------");
         SharedPreferences preferences = await SharedPreferences.getInstance();
         preferences.setBool("isLoggedIn", true);
         preferences.setInt("idusuario", user.idusuario);

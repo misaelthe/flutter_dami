@@ -26,7 +26,7 @@ class _ListClasesAlumnoPage extends State<ListClasesAlumnoPage> {
     int idalumno = await alCtrl.getIdAlumno();
     List<Clase> tem = await alCtrl.getClasesByAlumno(idalumno);
     for (Clase c in tem) {
-      Curso curso = await alCtrl.getCursoByClase(c.idclase);
+      Curso curso = await alCtrl.getCursoBy(c.idcurso);
       Seccion seccion = await alCtrl.getSeccionByClase(c.idclase);
       data.add(new ListTile(
         leading: Icon(

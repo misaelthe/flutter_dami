@@ -20,7 +20,7 @@ class DocenteCtrl {
   }
 
   getClasesByDocente(int iddocente) async {
-    return await service.getClasesByProfesor(iddocente);
+    return await service.getClasesByDocente(iddocente);
   }
 
   getAlumnosByClase(int idclase) async {
@@ -41,8 +41,8 @@ class DocenteCtrl {
     return tem;
   }
 
-  Future<Curso> getCursoByClase(int idclase) async {
-    Curso tem = await service.getCursoByClase(idclase);
+  Future<Curso> getCursoBy(int idcurso) async {
+    Curso tem = await service.getCursoBy(idcurso);
     return tem;
   }
 
