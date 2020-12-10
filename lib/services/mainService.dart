@@ -136,7 +136,6 @@ class MainService {
         .rawQuery("SELECT * FROM clase c WHERE iddocente = ?", [iddocente]);
     List<Clase> list =
         res.isNotEmpty ? res.map((c) => Clase.fromMap(c)).toList() : null;
-    print("se sta obteniendo data frmom docente" + list.length.toString());
     return list;
   }
 
@@ -147,8 +146,6 @@ class MainService {
         [idalumno]);
     List<Clase> list =
         res.isNotEmpty ? res.map((c) => Clase.fromMap(c)).toList() : null;
-    print("se sta obteniendo data de las clases del alumno" +
-        list.length.toString());
     return list;
   }
 
@@ -179,6 +176,13 @@ class MainService {
     var res = await dbCibertec.rawQuery(
         "SELECT * FROM nota n WHERE n.idclase = ? and n.idalumno = ?",
         [idclase, idalumno]);
+    return new Nota.fromMap(res.first);
+  }
+
+  Future<Nota> getNotaByClase(int idclase) async {
+    dbCibertec = await con.database;
+    var res = await dbCibertec
+        .rawQuery("SELECT * FROM nota n WHERE n.idclase = ?", [idclase]);
     return new Nota.fromMap(res.first);
   }
 
@@ -217,6 +221,11 @@ class MainService {
     dbCibertec = await con.database;
     var res = await dbCibertec.query("clase");
     print(res);
+  }
+
+  deleteNotas() async {
+    dbCibertec = await con.database;
+    await dbCibertec.delete("nota");
   }
 
   deleteDB() async {

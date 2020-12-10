@@ -24,6 +24,8 @@ class _ListNotasAlumnoPage extends State<ListNotasAlumnoPage> {
     fontFamily: 'RobotoMono',
     fontSize: 18,
   );
+  final styleBold = TextStyle(
+      fontFamily: 'RobotoMono', fontSize: 18, fontWeight: FontWeight.w900);
   @override
   void initState() {
     setNotas();
@@ -112,6 +114,21 @@ class _ListNotasAlumnoPage extends State<ListNotasAlumnoPage> {
             Text(
               n.ef.toString(),
               style: styleBody,
+              textAlign: TextAlign.center,
+            ),
+          ],
+          decoration: BoxDecoration(color: Colors.grey[200]),
+        ),
+        TableRow(
+          children: [
+            Text(
+              "Promedio Final",
+              style: styleBold,
+              textAlign: TextAlign.center,
+            ),
+            Text(
+              n.promedio.toString(),
+              style: styleBold,
               textAlign: TextAlign.center,
             ),
           ],

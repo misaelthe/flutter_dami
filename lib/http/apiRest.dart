@@ -334,4 +334,46 @@ class ApiRest {
       print("No se obtuvo respuesta del json enviado alumno");
     }
   }
+
+///////////////////////////////BAJAR CAMBIOS
+
+  bajarCambiosByDocente(Docente d) async {
+    service.deleteNotas();
+    var response = await http.get(
+        'https://cibertec-schoolar.herokuapp.com/rest/getNotasXDocente?iddocente=' +
+            d.iddocente.toString());
+    if (response.statusCode == 200) {
+      try {
+        List json = await jsonDecode(response.body);
+        List<Nota> tem = json.map((e) => new Nota.fromJson(e)).toList();
+        for (Nota n in tem) {
+          await service.registrarNota(n);
+        }
+      } on Exception catch (e) {
+        print(e);
+      }
+    } else {
+      print("No se obtuvo respuesta en bajarCambiosByDocente");
+    }
+  }
+
+  bajarCambiosByAlumno(Alumno a) async {
+    await service.deleteNotas();
+    var response = await http.get(
+        'https://cibertec-schoolar.herokuapp.com/rest/getNotasXAlumno?idalumno=' +
+            a.idalumno.toString());
+    if (response.statusCode == 200) {
+      try {
+        List json = await jsonDecode(response.body);
+        List<Nota> tem = json.map((e) => new Nota.fromJson(e)).toList();
+        for (Nota n in tem) {
+          await service.registrarNota(n);
+        }
+      } on Exception catch (e) {
+        print(e);
+      }
+    } else {
+      print("No se obtuvo respuesta en bajarCambiosByAlumno");
+    }
+  }
 }

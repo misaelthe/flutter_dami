@@ -1,4 +1,5 @@
 import 'package:flutter_dami/db/DBCibertec.dart';
+import 'package:flutter_dami/http/apiRest.dart';
 import 'package:flutter_dami/model/Alumno.dart';
 import 'package:flutter_dami/model/Nota.dart';
 import 'package:flutter_dami/services/mainService.dart';
@@ -27,10 +28,15 @@ class AlumnoCtrl {
     return await service.getSeccionByClase(idclase);
   }
 
-  Future<Nota> getNotaByClase(int idclase) async {
+  void bajarCambios() async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     int idusuario = preferences.getInt("idusuario");
     Alumno a = await service.getAlumnoBy(idusuario);
-    return await service.getNotaByClaseByAlumno(idclase, a.idalumno);
+    ApiRest rest = new ApiRest();
+    rest.bajarCambiosByAlumno(a);
+  }
+
+  Future<Nota> getNotaByClase(int idclase) async {
+    return await service.getNotaByClase(idclase);
   }
 }

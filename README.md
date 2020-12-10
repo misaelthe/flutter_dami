@@ -1,4 +1,5 @@
-# 1.0.9
+# 1.1
+    Bugs FIXED
 # 1.0.7
     Mejorando iconos de la interfaz
     Reorganizando las pages

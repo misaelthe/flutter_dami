@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_dami/controller/DocenteCtrlr.dart';
 import 'package:flutter_dami/controller/LoginCtrlr.dart';
 import 'package:flutter_dami/widgets/header_cibertec.dart';
 
 class DocenteHomePage extends StatelessWidget {
   final LoginCtrl loginCtrl = new LoginCtrl();
+  final DocenteCtrl docenteCtrl = new DocenteCtrl();
   final styleOpciones = TextStyle(
     fontFamily: 'RobotoMono',
     fontSize: 15,
@@ -156,12 +158,26 @@ class DocenteHomePage extends StatelessWidget {
                   ),
                 ),
                 ListTile(
-                  leading: Icon(Icons.create_sharp),
+                  leading: Icon(
+                    Icons.create_sharp,
+                    size: 40,
+                  ),
                   title: Text(
                     'Registrar Nota',
                     style: styleOpciones,
                   ),
                   onTap: () => {goPageListClasesByDocente(context)},
+                ),
+                ListTile(
+                  leading: Icon(
+                    Icons.cloud_download_rounded,
+                    size: 40,
+                  ),
+                  title: Text(
+                    'Bajar Cambios',
+                    style: styleOpciones,
+                  ),
+                  onTap: () => {bajarCambios(context)},
                 ),
                 ListTile(
                   leading: Icon(
@@ -286,5 +302,9 @@ class DocenteHomePage extends StatelessWidget {
 
   goPageListClasesByDocente(BuildContext context) async {
     Navigator.of(context).pushNamed("/pageClasesDocente");
+  }
+
+  bajarCambios(BuildContext context) async {
+    docenteCtrl.bajarCambios();
   }
 }

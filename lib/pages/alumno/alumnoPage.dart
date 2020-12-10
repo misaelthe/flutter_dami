@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_dami/controller/AlumnoCtrl.dart';
 import 'package:flutter_dami/controller/LoginCtrlr.dart';
 import 'package:flutter_dami/widgets/header_cibertec.dart';
 
 class AlumnoHomePage extends StatelessWidget {
   final LoginCtrl loginCtrl = new LoginCtrl();
+  final AlumnoCtrl alumnoCtrl = new AlumnoCtrl();
   final styleOpciones = TextStyle(
     fontFamily: 'RobotoMono',
     fontSize: 15,
@@ -169,6 +171,17 @@ class AlumnoHomePage extends StatelessWidget {
                 ),
                 ListTile(
                   leading: Icon(
+                    Icons.cloud_download_rounded,
+                    size: 40,
+                  ),
+                  title: Text(
+                    'Bajar Cambios',
+                    style: styleOpciones,
+                  ),
+                  onTap: () => {bajarCambios(context)},
+                ),
+                ListTile(
+                  leading: Icon(
                     Icons.alarm_sharp,
                     size: 40,
                   ),
@@ -280,5 +293,9 @@ class AlumnoHomePage extends StatelessWidget {
 
   goPageListClasesByAlumno(BuildContext context) async {
     Navigator.of(context).pushNamed("/pageClasesAlumno");
+  }
+
+  bajarCambios(BuildContext context) async {
+    alumnoCtrl.bajarCambios();
   }
 }

@@ -46,6 +46,14 @@ class DocenteCtrl {
     return tem;
   }
 
+  void bajarCambios() async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    int idusuario = preferences.getInt("idusuario");
+    Docente d = await service.getDocenteBy(idusuario);
+    ApiRest rest = new ApiRest();
+    rest.bajarCambiosByDocente(d);
+  }
+
   registrarNota(
       int idnota, int e1, int e2, int ep, int e3, int ef, int promedio) async {
     Nota n = await getNotaBy(idnota);
